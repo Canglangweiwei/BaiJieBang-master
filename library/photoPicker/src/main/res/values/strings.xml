@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">library</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="save_txt">保存</string>
+    <string name="cancel_txt">取消</string>
+    <string name="gallery_txt">相册</string>
+    <string name="camera_txt">拍照</string>
+</resources>

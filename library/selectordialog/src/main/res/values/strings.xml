@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SelectorDialog</string>
+
+    <string name="date_select">时间选择器</string>
+    <string name="_year">年</string>
+    <string name="_month">月</string>
+    <string name="_day">日</string>
+    <string name="_hour">时</string>
+    <string name="_second">分</string>
+    <string name="_confirm">确定</string>
+    <string name="_cancel">取消</string>
+    <string name="_select_date">日期时间组合选择页面</string>
+</resources>

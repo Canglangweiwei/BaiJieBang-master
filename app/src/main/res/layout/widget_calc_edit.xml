@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <EditText
+        android:id="@+id/edit_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/windows_bg"
+        android:gravity="left|top"
+        android:hint="请输入您的描述内容"
+        android:inputType="textMultiLine"
+        android:lineSpacingExtra="3dp"
+        android:minLines="4"
+        android:padding="8dp"
+        android:textColor="@color/gray"
+        android:textColorHint="@color/gray"
+        android:textSize="@dimen/font_normal" />
+
+    <TextView
+        android:id="@+id/left_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/edit_content"
+        android:layout_alignEnd="@+id/edit_content"
+        android:layout_alignRight="@+id/edit_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="3dp"
+        android:text="@string/left"
+        android:textSize="@dimen/font_small"
+        android:textStyle="italic" />
+</RelativeLayout>
