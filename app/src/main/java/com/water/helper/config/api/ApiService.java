@@ -61,7 +61,7 @@ public interface ApiService {
      * 获取发货列表信息
      */
     @GET("xidi/fahuoList.php")
-    Observable<BaseModel> Get_FahuoList(@Query("bName") String bName, @Query("selectDate") String selectDate, @Query("username") String username);
+    Observable<BaseModel> Get_FahuoList(@Query("hid") int hid, @Query("selectDate") String selectDate, @Query("username") String username);
 
     /**
      * 获取发货列表信息

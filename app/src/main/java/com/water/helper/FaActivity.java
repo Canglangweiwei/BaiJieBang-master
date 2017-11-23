@@ -51,7 +51,8 @@ public class FaActivity extends AbsBaseActivity implements FaContract.View {
     private FaListExpandableListViewAdapter mExpandableListViewAdapter;
 
     private CommonFilterHotelListAdapter adapter;
-    private String mSelectedBinguanName, mSelectedDateTime;
+    private String mSelectedDateTime;
+    private int mSelectedHotelID;
 
     @Inject
     FaPresenter presenter;
@@ -147,8 +148,8 @@ public class FaActivity extends AbsBaseActivity implements FaContract.View {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 HotelBean hotelBean = (HotelBean) parent.getSelectedItem();
-                mSelectedBinguanName = hotelBean.getName();
-                presenter.getList(mSelectedBinguanName, mSelectedDateTime, mBaseUserBean.getUsername());
+                mSelectedHotelID = hotelBean.getId();
+                presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
             }
 
             @Override
@@ -167,7 +168,7 @@ public class FaActivity extends AbsBaseActivity implements FaContract.View {
             public void onTimeSelect(String timeSelect) {
                 mSelectedDateTime = timeSelect;
                 mTvDate.setText(timeSelect);
-                presenter.getList(mSelectedBinguanName, mSelectedDateTime, mBaseUserBean.getUsername());
+                presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
             }
 
             @Override

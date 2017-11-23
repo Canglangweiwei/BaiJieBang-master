@@ -62,9 +62,9 @@ public class FaPresenter implements FaContract.Presenter {
     }
 
     @Override
-    public void getList(String bName, String selectDate, String username) {
+    public void getList(int hid, String selectDate, String username) {
         HttpPost httpPost = new HttpPost();
-        httpPost.Get_FahuoList(bName, selectDate, username, new Subscriber<BaseModel>() {
+        httpPost.Get_FahuoList(hid, selectDate, username, new Subscriber<BaseModel>() {
 
             @Override
             public void onCompleted() {

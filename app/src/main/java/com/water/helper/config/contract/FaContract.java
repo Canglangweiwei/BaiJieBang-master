@@ -20,6 +20,6 @@ public interface FaContract {
     interface Presenter extends BasePresenter<View> {
         void getBinGuanInfo();
 
-        void getList(String bName, String selectDate, String username);
+        void getList(int hid, String selectDate, String username);
     }
 }
