@@ -33,9 +33,9 @@ public class ShouPresenter implements ShouContract.Presenter {
     }
 
     @Override
-    public void getBinGuanInfo() {
+    public void getBinGuanInfo(String a_id) {
         HttpPost httpPost = new HttpPost();
-        httpPost.Get_BinGuanInfo(new Subscriber<BaseResponse<List<HotelBean>>>() {
+        httpPost.Get_BinGuanInfo(a_id, new Subscriber<BaseResponse<List<HotelBean>>>() {
             @Override
             public void onCompleted() {
 

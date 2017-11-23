@@ -43,7 +43,7 @@ public interface ApiService {
      * 获取宾馆列表信息
      */
     @GET("xidi/binguan.php")
-    Observable<BaseResponse<List<HotelBean>>> Get_BinguanInfo();
+    Observable<BaseResponse<List<HotelBean>>> Get_BinguanInfo(@Query("a_id") String a_id);
 
     /**
      * 获取楼层列表信息

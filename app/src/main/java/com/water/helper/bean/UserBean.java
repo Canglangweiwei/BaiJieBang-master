@@ -29,11 +29,11 @@ public class UserBean extends DataSupport implements Serializable {
     private int userid;
     private String username;
     private String password;
-    private Object roleID;
+    private String roleID;
     private String addtime;
-    private Object addperson;
+    private String addperson;
     private String lasttime;
-    private Object a_id;
+    private String a_id;
     private String zhaohu;
 
     public UserBean() {
@@ -64,11 +64,11 @@ public class UserBean extends DataSupport implements Serializable {
         this.password = password;
     }
 
-    public Object getRoleID() {
+    public String getRoleID() {
         return roleID;
     }
 
-    public void setRoleID(Object roleID) {
+    public void setRoleID(String roleID) {
         this.roleID = roleID;
     }
 
@@ -80,11 +80,11 @@ public class UserBean extends DataSupport implements Serializable {
         this.addtime = addtime;
     }
 
-    public Object getAddperson() {
+    public String getAddperson() {
         return addperson;
     }
 
-    public void setAddperson(Object addperson) {
+    public void setAddperson(String addperson) {
         this.addperson = addperson;
     }
 
@@ -96,11 +96,11 @@ public class UserBean extends DataSupport implements Serializable {
         this.lasttime = lasttime;
     }
 
-    public Object getA_id() {
+    public String getA_id() {
         return a_id;
     }
 
-    public void setA_id(Object a_id) {
+    public void setA_id(String a_id) {
         this.a_id = a_id;
     }
 

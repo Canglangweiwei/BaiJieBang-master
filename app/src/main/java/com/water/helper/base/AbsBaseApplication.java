@@ -1,7 +1,6 @@
 package com.water.helper.base;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
@@ -30,10 +29,6 @@ public class AbsBaseApplication extends BaseApplication {
     public static AbsBaseApplication sApp;
 
     private Stack<Activity> activityStack;// activity栈
-
-    public static AbsBaseApplication get(Context context) {
-        return (AbsBaseApplication) context.getApplicationContext();
-    }
 
     private UserBean usInfo;                    // 用户信息
 

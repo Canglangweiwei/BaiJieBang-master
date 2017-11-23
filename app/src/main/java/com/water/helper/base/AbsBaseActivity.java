@@ -35,13 +35,13 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AbsBaseApplication.get(getApplicationContext()).pushActivityToStack(this);
+        AbsBaseApplication.sApp.pushActivityToStack(this);
         setContentView(initLayoutResID());
         ButterKnife.bind(this);
         mGson = new Gson();
-        mBaseUserBean = AbsBaseApplication.get(getApplicationContext()).getUserInfo();
+        mBaseUserBean = AbsBaseApplication.sApp.getUserInfo();
         parseIntent();
-        setupComponent(AbsBaseApplication.get(this).component());
+        setupComponent(AbsBaseApplication.sApp.component());
         initUi();
         initDatas();
         initListener();

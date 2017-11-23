@@ -150,7 +150,7 @@ public class HomeActivity extends AbsBaseActivity {
             newTime = System.currentTimeMillis();
             ToastUitl.showShort(getString(R.string.press_twice_exit));
         } else {
-            AbsBaseApplication.get(getApplicationContext()).finishAllActivity();
+            AbsBaseApplication.sApp.finishAllActivity();
         }
     }
 

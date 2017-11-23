@@ -18,7 +18,7 @@ public interface ShouListContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getBinGuanInfo();
+        void getBinGuanInfo(String a_id);
 
         void getList(int hid, String selectDate, String username);
     }

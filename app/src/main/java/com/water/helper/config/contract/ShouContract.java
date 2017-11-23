@@ -24,7 +24,7 @@ public interface ShouContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getBinGuanInfo();
+        void getBinGuanInfo(String a_id);
 
         void getLoucInfo(int hid);
 

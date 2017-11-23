@@ -1,5 +1,6 @@
 package com.water.helper;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
@@ -122,7 +123,7 @@ public class FaActivity extends AbsBaseActivity implements FaContract.View {
     protected void initDatas() {
         // 绑定页面
         presenter.attachView(this);
-        presenter.getBinGuanInfo();
+        presenter.getBinGuanInfo(TextUtils.isEmpty(mBaseUserBean.getA_id()) ? "" : mBaseUserBean.getA_id());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.water.helper;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -114,7 +115,7 @@ public class ShouActivity extends AbsBaseActivity
         mAdapter.resetData(goodsList);
         // 绑定页面
         presenter.attachView(this);
-        presenter.getBinGuanInfo();
+        presenter.getBinGuanInfo(TextUtils.isEmpty(mBaseUserBean.getA_id()) ? "" : mBaseUserBean.getA_id());
     }
 
     @Override

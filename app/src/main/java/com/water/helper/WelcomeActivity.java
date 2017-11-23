@@ -63,7 +63,7 @@ public class WelcomeActivity extends AbsBaseActivity implements LoginContract.Vi
     protected void initDatas() {
         loginPresenter.attachView(this);
 
-        UserBean userBean = AbsBaseApplication.get(this).getUserInfo();
+        UserBean userBean = AbsBaseApplication.sApp.getUserInfo();
         if (userBean == null) {
             startNextActivity(null, LoginActivity.class, true);
             return;

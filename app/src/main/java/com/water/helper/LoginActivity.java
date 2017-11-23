@@ -63,7 +63,7 @@ public class LoginActivity extends AbsBaseActivity implements LoginContract.View
 
     @Override
     protected void initDatas() {
-        UserBean userBean = AbsBaseApplication.get(this).getUserInfo();
+        UserBean userBean = AbsBaseApplication.sApp.getUserInfo();
         if (userBean != null) {
             mEditUsername.setText(userBean.getUsername());
             mEditPassword.setText(userBean.getPassword());
