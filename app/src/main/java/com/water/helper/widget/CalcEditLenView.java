@@ -31,6 +31,8 @@ public class CalcEditLenView extends RelativeLayout {
 
     public void setMAX_COUNT(int MAX_COUNT) {
         this.MAX_COUNT = MAX_COUNT;
+        leftText.setText("还可以输入"
+                + String.valueOf((MAX_COUNT - getInputCount())) + "个字符！");
     }
 
     public CalcEditLenView(Context context) {
