@@ -109,7 +109,7 @@ public class HomeActivity extends AbsBaseActivity {
                         .setTitleVisible(true)
                         .setTitleText("温馨提示")
                         .setTitleTextColor(R.color.black_light)
-                        .setContentText("是否要注销登录？\n\n注销后会清空用户名和密码\n该工程不可逆")
+                        .setContentText("是否要注销登录？\n\n注销后会清空用户名和密码\n该过程不可逆")
                         .setContentTextColor(R.color.black_light)
                         .setLeftButtonText("取消")
                         .setLeftButtonTextColor(R.color.black_light)
