@@ -1,5 +1,6 @@
 package com.water.helper;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,10 +38,14 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/31 0031.
  */
 public class ShouListActivity extends AbsBaseActivity
-        implements ShouListContract.View {
+        implements ShouListContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.ntb)
     NormalTitleBar ntb;
+
+    @Bind(R.id.swipe_container)
+    SwipeRefreshLayout mSRLayout;
 
     @Bind(R.id.add_goods_list_spinner_b)
     Spinner s_bg;   // 宾馆
@@ -83,8 +88,23 @@ public class ShouListActivity extends AbsBaseActivity
         ntb.setTitleText("收货管理");
         mSelectedDateTime = DateTimeUtil.getClientDateFormat("yyyy-MM-dd");
         mTvDate.setText(DateTimeUtil.getClientDateFormat("yyyy-MM-dd"));
+
+        // 初始化页面刷新工具
+        initSwipeRefreshLayout();
+        // 初始化宾馆菜单
         initBgMenu();
+        // 初始化列表
         initExpandListView();
+    }
+
+    /**
+     * 初始化页面刷新工具
+     */
+    private void initSwipeRefreshLayout() {
+        mSRLayout.setOnRefreshListener(this);
+        mSRLayout.setColorSchemeResources(android.R.color.holo_orange_light,
+                android.R.color.holo_blue_bright, android.R.color.holo_green_light);
+        mSRLayout.setDistanceToTriggerSync(400);
     }
 
     /**
@@ -198,6 +218,7 @@ public class ShouListActivity extends AbsBaseActivity
      */
     @Override
     public void getShouList(ShouResultBean resultBean) {
+        mSRLayout.setRefreshing(false);
         mExpandableListViewAdapter.resetData(resultBean.getGroup(), resultBean.getChild());
 
         // 设置Group第一个默认展开
@@ -207,11 +228,13 @@ public class ShouListActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(Throwable throwable) {
+        mSRLayout.setRefreshing(false);
         ToastUitl.showShort("请检查网络连接");
     }
 
     @Override
     public void onFailureCallback(int errorCode, String errorMsg) {
+        mSRLayout.setRefreshing(false);
         ToastUitl.showShort(errorMsg);
         mExpandableListViewAdapter.clear();
     }
@@ -220,5 +243,10 @@ public class ShouListActivity extends AbsBaseActivity
     protected void onDestroy() {
         presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
     }
 }

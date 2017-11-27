@@ -16,6 +16,10 @@
     <color name="white">#FFFFFFFF</color>
     <!--纯灰色 -->
     <color name="gray">#646464</color>
+    <!--红色 -->
+    <color name="txt_red">#D02E14</color>
+    <!--红色 -->
+    <color name="txt_green">#ABCE16</color>
     <!-- 灰色 -->
     <color name="color_435354">#435354</color>
     <!--浅灰色 -->
@@ -25,7 +29,7 @@
     <!--浅灰色2 -->
     <color name="textcolor_bg">#DDDDDD</color>
     <!-- 分割线 -->
-    <color name="list_divider">#C8C8C8</color>
+    <color name="list_divider">#50C8C8C8</color>
     <!--纯黑色 -->
     <color name="black">#000000</color>
 </resources>

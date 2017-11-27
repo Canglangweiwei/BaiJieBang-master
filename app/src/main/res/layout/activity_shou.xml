@@ -75,7 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:background="@drawable/btn_sub"
+                    android:background="@drawable/green_w_bg"
+                    android:text="提交"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_large" />
             </LinearLayout>

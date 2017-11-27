@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <com.jaydenxiao.common.commonwidget.RoundAngleImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_ad_height"
+            android:layout_margin="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="fitXY"
             android:src="@drawable/home_top_ad" />

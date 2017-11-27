@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 圆角矩形 -->
+    <declare-styleable name="RoundAngleImageView">
+        <attr name="roundWidth" format="dimension" />
+        <attr name="roundHeight" format="dimension" />
+    </declare-styleable>
+
+    <!-- 方形图片 -->
     <declare-styleable name="ForegroundImageView">
         <attr name="android:foreground" />
     </declare-styleable>
