@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 import com.water.helper.R;
 import com.water.helper.bean.GoodsModel;
 import com.water.helper.util.SimpleTextWather;
@@ -77,7 +75,7 @@ public class GoodsAdapter extends BaseAdapter {
 
         final GoodsModel goodsModel = goodsModels.get(position);
         viewHolder.tvName.setText(goodsModel.getTitle());
-        ImageLoaderUtils.displaySmallPhoto(parent.getContext(), viewHolder.iv, goodsModel.getImagePath());
+        viewHolder.tvNumWu.setText(String.valueOf(goodsModel.getNum_wu()));
 
         if (viewHolder.etLine.getTag() instanceof TextWatcher) {
             viewHolder.etLine.removeTextChangedListener((TextWatcher) (viewHolder.etLine.getTag()));
@@ -120,11 +118,6 @@ public class GoodsAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (TextUtils.isEmpty(s)) {
-//                    goodsModel.setText("");
-//                } else {
-//                    goodsModel.setText(String.valueOf(s));
-//                }
                 if (callback == null || TextUtils.isEmpty(s)) {
                     return;
                 }
@@ -134,6 +127,7 @@ public class GoodsAdapter extends BaseAdapter {
         viewHolder.etLine.addTextChangedListener(watcher);
         viewHolder.etLine.setTag(watcher);
 
+        // 常规加
         viewHolder.item_good_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +138,7 @@ public class GoodsAdapter extends BaseAdapter {
                 callback.addGoods(v, position);
             }
         });
-
+        // 常规减
         viewHolder.item_good_reduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +147,28 @@ public class GoodsAdapter extends BaseAdapter {
                     return;
                 }
                 callback.reduceGoods(position);
+            }
+        });
+        // 重污加
+        viewHolder.item_good_add_wu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enFoucs();
+                if (callback == null) {
+                    return;
+                }
+                callback.addWu(v, position);
+            }
+        });
+        // 重污减
+        viewHolder.item_good_reduce_wu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enFoucs();
+                if (callback == null || 0 == goodsModel.getNum_wu()) {
+                    return;
+                }
+                callback.reduceWu(position);
             }
         });
         return convertView;
@@ -174,14 +190,19 @@ public class GoodsAdapter extends BaseAdapter {
     class ViewHolder {
         @Bind(R.id.item_add_goods_name)
         TextView tvName;
-        @Bind(R.id.item_add_goods_image)
-        ImageView iv;
         @Bind(R.id.item_goods_num)
         EditText etLine;
+        @Bind(R.id.item_wu_goods_num)
+        TextView tvNumWu;
         @Bind(R.id.ly_item_goods_reduce)
         RelativeLayout item_good_reduce;
         @Bind(R.id.ly_item_goods_add)
         RelativeLayout item_good_add;
+
+        @Bind(R.id.ly_item_wu_goods_reduce)
+        RelativeLayout item_good_reduce_wu;
+        @Bind(R.id.ly_item_wu_goods_add)
+        RelativeLayout item_good_add_wu;
 
         ViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
@@ -194,6 +215,10 @@ public class GoodsAdapter extends BaseAdapter {
         void inputGoods(int position, String s);
 
         void reduceGoods(int position);
+
+        void addWu(View view, int position);
+
+        void reduceWu(int position);
     }
 
     public void reset() {

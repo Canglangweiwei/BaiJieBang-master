@@ -181,10 +181,21 @@ public class ShouActivity extends AbsBaseActivity
         mAdapter.resetData(goodsModels);
     }
 
+    /**
+     * 添加收货信息
+     *
+     * @param message 提示信息
+     */
     @Override
     public void add(String message) {
         ToastUitl.showShort(message);
-        onBackPressed();
+        for (GoodsModel model : goodsList) {
+            model.setNum(0);
+            model.setNum_wu(0);
+        }
+        mAdapter.reset();
+
+        etContent.clear();
     }
 
     @Override
@@ -197,12 +208,12 @@ public class ShouActivity extends AbsBaseActivity
         ToastUitl.showShort(errorMsg);
     }
 
-    @Override
-    protected void onDestroy() {
-        presenter.detachView();
-        super.onDestroy();
-    }
-
+    /**
+     * 商品+1
+     *
+     * @param view     view
+     * @param position 下标
+     */
     @Override
     public void addGoods(View view, int position) {
         GoodsModel model = goodsList.get(position);
@@ -212,6 +223,12 @@ public class ShouActivity extends AbsBaseActivity
         // .............
     }
 
+    /**
+     * 商品输入
+     *
+     * @param position 下标
+     * @param s        输入
+     */
     @Override
     public void inputGoods(int position, String s) {
         GoodsModel model = goodsList.get(position);
@@ -219,6 +236,11 @@ public class ShouActivity extends AbsBaseActivity
         mAdapter.reset();
     }
 
+    /**
+     * 商品-1
+     *
+     * @param position 下标
+     */
     @Override
     public void reduceGoods(int position) {
         GoodsModel model = goodsList.get(position);
@@ -226,6 +248,31 @@ public class ShouActivity extends AbsBaseActivity
         mAdapter.reset();
         // 更新待提交的数据源
         // .............
+    }
+
+    /**
+     * 重污+1
+     *
+     * @param view     view
+     * @param position 下标
+     */
+    @Override
+    public void addWu(View view, int position) {
+        GoodsModel model = goodsList.get(position);
+        model.setNum_wu(model.getNum_wu() + 1);
+        mAdapter.reset();
+    }
+
+    /**
+     * 重污-1
+     *
+     * @param position 下标
+     */
+    @Override
+    public void reduceWu(int position) {
+        GoodsModel model = goodsList.get(position);
+        model.setNum_wu(model.getNum_wu() - 1);
+        mAdapter.reset();
     }
 
     private MDAlertDialog mdAlertDialog;
@@ -277,11 +324,19 @@ public class ShouActivity extends AbsBaseActivity
                     .append(model.getTitle())
                     .append("/")
                     .append(model.getNum())
+                    .append("/")
+                    .append(model.getNum_wu())
                     .append(",");
         }
         String username = mBaseUserBean.getUsername();
         String beizhu = etContent.getEditTextContent();
         System.out.println(builder.toString());
         presenter.add(builder.toString(), username, mSelectedHotelId, mSelectedHotelLzId, beizhu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.detachView();
+        super.onDestroy();
     }
 }

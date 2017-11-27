@@ -3,6 +3,6 @@
     <solid android:color="@color/white" />
     <stroke
         android:width="0.5dp"
-        android:color="@color/textcolor_bg" />
+        android:color="@color/list_divider" />
     <corners android:radius="0dp" />
 </shape>

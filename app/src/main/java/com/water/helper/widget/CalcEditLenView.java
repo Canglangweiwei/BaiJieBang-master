@@ -155,4 +155,9 @@ public class CalcEditLenView extends RelativeLayout {
             return "";
         return editContent;
     }
+
+    public void clear() {
+        editText.setText("");
+        leftText.setText("还可以输入" + MAX_COUNT + "个字符！");
+    }
 }

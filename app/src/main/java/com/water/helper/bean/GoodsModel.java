@@ -8,9 +8,9 @@ public class GoodsModel implements Parcelable {
 
     private int id;
     private int num;
+    private int num_wu;
     private String title;
     private String dj;
-    private String imagePath;
     private boolean focus;
 
     public GoodsModel() {
@@ -20,9 +20,9 @@ public class GoodsModel implements Parcelable {
     protected GoodsModel(Parcel in) {
         id = in.readInt();
         num = in.readInt();
+        num_wu = in.readInt();
         title = in.readString();
         dj = in.readString();
-        imagePath = in.readString();
         focus = in.readByte() != 0;
     }
 
@@ -42,6 +42,14 @@ public class GoodsModel implements Parcelable {
         this.num = num;
     }
 
+    public int getNum_wu() {
+        return num_wu;
+    }
+
+    public void setNum_wu(int num_wu) {
+        this.num_wu = num_wu;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -56,14 +64,6 @@ public class GoodsModel implements Parcelable {
 
     public void setDj(String dj) {
         this.dj = dj;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public boolean isFocus() {
@@ -95,9 +95,9 @@ public class GoodsModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeInt(num);
+        dest.writeInt(num_wu);
         dest.writeString(title);
         dest.writeString(dj);
-        dest.writeString(imagePath);
         dest.writeByte((byte) (focus ? 1 : 0));
     }
 }
