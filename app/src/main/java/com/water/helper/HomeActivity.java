@@ -12,6 +12,7 @@ import com.water.helper.app.AbsAppComponent;
 import com.water.helper.base.AbsBaseActivity;
 import com.water.helper.base.AbsBaseApplication;
 import com.water.helper.bean.UserBean;
+import com.water.helper.webservice.RequestType;
 import com.wevey.selector.dialog.DialogOnClickListener;
 import com.wevey.selector.dialog.MDAlertDialog;
 
@@ -152,6 +153,11 @@ public class HomeActivity extends AbsBaseActivity {
         } else {
             AbsBaseApplication.sApp.finishAllActivity();
         }
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
     }
 
     /**

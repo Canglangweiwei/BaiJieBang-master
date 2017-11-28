@@ -13,6 +13,7 @@ import com.water.helper.config.component.DaggerLoginPresenterComponent;
 import com.water.helper.config.contract.LoginContract;
 import com.water.helper.config.module.LoginModule;
 import com.water.helper.config.presenter.LoginPresenter;
+import com.water.helper.webservice.RequestType;
 
 import javax.inject.Inject;
 
@@ -111,5 +112,10 @@ public class WelcomeActivity extends AbsBaseActivity implements LoginContract.Vi
     protected void onDestroy() {
         loginPresenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
     }
 }

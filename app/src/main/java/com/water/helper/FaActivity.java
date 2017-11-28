@@ -21,6 +21,7 @@ import com.water.helper.config.component.DaggerFaPresenterComponent;
 import com.water.helper.config.contract.FaContract;
 import com.water.helper.config.module.FaModule;
 import com.water.helper.config.presenter.FaPresenter;
+import com.water.helper.webservice.RequestType;
 import com.wevey.selector.dialog.DateType;
 import com.wevey.selector.dialog.TimePickerDialog;
 
@@ -237,6 +238,11 @@ public class FaActivity extends AbsBaseActivity
     protected void onDestroy() {
         presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
     }
 
     @Override

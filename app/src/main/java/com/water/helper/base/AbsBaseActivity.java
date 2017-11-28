@@ -12,13 +12,24 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.water.helper.R;
 import com.water.helper.app.AbsAppComponent;
 import com.water.helper.bean.UserBean;
+import com.water.helper.config.AppConfig;
+import com.water.helper.webservice.RequestType;
+import com.water.helper.webservice.WebAPI;
+
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * <p>
@@ -31,6 +42,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
 
     protected Gson mGson;
     protected UserBean mBaseUserBean;
+    protected WebAPI client;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -207,5 +219,66 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    /*********************
+     * 封装网络请求
+     *******************/
+
+    public abstract void onLoadSuccessCallBack(String jsonData, RequestType type);
+
+    /**
+     * 发起网络请求
+     */
+    private void sendRequestAsCtrl(Call<Map<String, Object>> response,
+                                   final RequestType type, boolean showDialog) {
+        // 进度条
+        if (showDialog) {
+            LoadingDialog.showDialogForLoading(this);
+        }
+
+        response.enqueue(new Callback<Map<String, Object>>() {
+
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                LoadingDialog.cancelDialogForLoading();
+                if (response == null || response.body() == null) {
+                    ToastUitl.showShort("未能获取到数据，可能服务器停止服务了");
+                    return;
+                }
+
+                Map<String, Object> requestResult = response.body();
+                if (requestResult.containsKey(AppConfig.API_KEY_RESULT)) {
+                    if (!AppConfig.SUCCESS.equals(requestResult.get(AppConfig.API_KEY_RESULT))) {
+                        if (requestResult.containsKey(AppConfig.API_KEY_ERROR)) {
+                            ToastUitl.showShort(requestResult.get(AppConfig.API_KEY_ERROR).toString());
+                        }
+                    } else {
+                        requestResult.remove(AppConfig.API_KEY_RESULT);
+                        requestResult.remove(AppConfig.API_KEY_ERROR);
+                        onLoadSuccessCallBack(new Gson().toJson(requestResult), type);
+                    }
+                } else {
+                    ToastUitl.showShort("出错了，但不是知道为什么");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> arg0, Throwable arg1) {
+                LoadingDialog.cancelDialogForLoading();
+                if (arg1 instanceof UnknownHostException) {
+                    ToastUitl.showShort("无法连接服务器");
+                } else if (arg1 instanceof SocketTimeoutException) {
+                    ToastUitl.showShort("超时,请稍后重试");
+                } else {
+                    ToastUitl.showShort("服务器无法处理请求");
+                }
+            }
+        });
+    }
+
+    protected void sendRequest(Call<Map<String, Object>> response,
+                               final RequestType type, boolean allowShowDialog) {
+        sendRequestAsCtrl(response, type, allowShowDialog);
     }
 }

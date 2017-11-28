@@ -13,6 +13,7 @@ import com.water.helper.config.contract.ShouContract;
 import com.water.helper.config.httpclient.HttpPost;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -126,7 +127,7 @@ public class ShouPresenter implements ShouContract.Presenter {
                 Gson mGson = new Gson();
                 Type type = new TypeToken<List<GoodsModel>>() {
                 }.getType();
-                List<GoodsModel> goodsModels = mGson.fromJson(baseModel.getData(), type);
+                ArrayList<GoodsModel> goodsModels = mGson.fromJson(baseModel.getData(), type);
 
                 // 解析收货类型
                 view.getAddType(goodsModels);

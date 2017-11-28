@@ -6,6 +6,7 @@ import com.water.helper.bean.GoodsModel;
 import com.water.helper.bean.HotelBean;
 import com.water.helper.bean.HotelLzBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -17,7 +18,7 @@ public interface ShouContract {
 
         void getLoucInfo(List<HotelLzBean> lous);
 
-        void getAddType(List<GoodsModel> goodsModels);
+        void getAddType(ArrayList<GoodsModel> goodsModels);
 
         void add(String message);
     }

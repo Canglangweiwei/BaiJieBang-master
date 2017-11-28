@@ -21,6 +21,7 @@ import com.water.helper.config.component.DaggerShouListPresenterComponent;
 import com.water.helper.config.contract.ShouListContract;
 import com.water.helper.config.module.ShouListModule;
 import com.water.helper.config.presenter.ShouListPresenter;
+import com.water.helper.webservice.RequestType;
 import com.wevey.selector.dialog.DateType;
 import com.wevey.selector.dialog.TimePickerDialog;
 
@@ -243,6 +244,11 @@ public class ShouListActivity extends AbsBaseActivity
     protected void onDestroy() {
         presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
     }
 
     @Override

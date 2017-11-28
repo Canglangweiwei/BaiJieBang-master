@@ -25,14 +25,14 @@ import butterknife.ButterKnife;
 @SuppressWarnings("ALL")
 public class GoodsAdapter extends BaseAdapter {
 
-    private List<GoodsModel> goodsModels;
+    private ArrayList<GoodsModel> goodsModels;
     private GoodsActionCallback callback;
 
     public GoodsAdapter() {
         this.goodsModels = new ArrayList<>();
     }
 
-    public void resetData(List<GoodsModel> goodsModels) {
+    public void resetData(ArrayList<GoodsModel> goodsModels) {
         if (goodsModels == null)
             return;
         this.goodsModels = goodsModels;

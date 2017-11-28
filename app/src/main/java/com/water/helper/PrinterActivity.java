@@ -1,0 +1,110 @@
+package com.water.helper;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.jaydenxiao.common.commonutils.DateTimeUtil;
+import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonwidget.NoScrollListView;
+import com.jaydenxiao.common.commonwidget.NormalTitleBar;
+import com.water.helper.adapter.PrinterListAdapter;
+import com.water.helper.app.AbsAppComponent;
+import com.water.helper.base.AbsBaseActivity;
+import com.water.helper.bean.GoodsModel;
+import com.water.helper.webservice.RequestType;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
+/**
+ * <p>
+ * 蓝牙打印机
+ * </p>
+ * Created by Administrator on 2017/11/28 0028.
+ */
+public class PrinterActivity extends AbsBaseActivity {
+
+    @Bind(R.id.ntb)
+    NormalTitleBar ntb;
+
+    @Bind(R.id.tv_printer_hotel)
+    TextView mTvhotel;                  // 宾馆
+    @Bind(R.id.tv_printer_hotel_lc)
+    TextView mTvhotellc;                // 楼层
+    @Bind(R.id.tv_printer_person)
+    TextView mTvperson;                 // 操作人
+    @Bind(R.id.tv_printer_date)
+    TextView mTvdate;                   // 操作日期
+    @Bind(R.id.tv_printer_beizhu)
+    TextView mTvbeizhu;                 // 备注
+
+    @Bind(R.id.printer_list)
+    NoScrollListView printerListview;       // 打印列表
+
+    private String hotelName, hotelLcName, beizhu;// 宾馆、楼层、备注信息
+    private ArrayList<GoodsModel> printerList;// 打印列表
+
+    @Override
+    protected int initLayoutResID() {
+        return R.layout.activity_printer;
+    }
+
+    @Override
+    protected void parseIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null)
+            return;
+        beizhu = bundle.getString("beizhu");
+        hotelName = bundle.getString("hotel");
+        hotelLcName = bundle.getString("hotelLc");
+        printerList = bundle.getParcelableArrayList("printer_list");
+    }
+
+    @Override
+    protected void setupComponent(AbsAppComponent component) {
+
+    }
+
+    @Override
+    protected void initUi() {
+        ntb.setTitleText("票据打印");
+        mTvhotel.setText(hotelName);
+        mTvhotellc.setText(hotelLcName);
+        mTvperson.setText(mBaseUserBean.getUsername());
+        mTvbeizhu.setText(beizhu);
+        mTvdate.setText(DateTimeUtil.getClientDateFormat("yyyy年M月d日 HH:mm:ss"));
+
+        if (printerList != null) {
+            PrinterListAdapter adapter = new PrinterListAdapter(this, printerList);
+            printerListview.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    protected void initDatas() {
+
+    }
+
+    @Override
+    protected void initListener() {
+        ntb.setOnBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @OnClick({R.id.btn_print})
+    void print(View view) {
+        ToastUitl.showShort("开始打印");
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
+    }
+}

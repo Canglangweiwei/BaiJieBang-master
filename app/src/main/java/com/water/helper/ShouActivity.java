@@ -1,5 +1,6 @@
 package com.water.helper;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,10 +21,12 @@ import com.water.helper.config.component.DaggerShouPresenterComponent;
 import com.water.helper.config.contract.ShouContract;
 import com.water.helper.config.module.ShouModule;
 import com.water.helper.config.presenter.ShouPresenter;
+import com.water.helper.webservice.RequestType;
 import com.water.helper.widget.CalcEditLenView;
 import com.wevey.selector.dialog.DialogOnClickListener;
 import com.wevey.selector.dialog.MDAlertDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -56,11 +59,12 @@ public class ShouActivity extends AbsBaseActivity
     CalcEditLenView etContent;
 
     private GoodsAdapter mAdapter;
-    private List<GoodsModel> goodsList;
+    private ArrayList<GoodsModel> goodsList;
 
     private CommonFilterHotelListAdapter hotelListAdapter;
     private CommonFilterHotelLzListAdapter hotelLzListAdapter;
     private int mSelectedHotelId, mSelectedHotelLzId;
+    private String hotelName, hotelLcName;
 
     @Inject
     ShouPresenter presenter;
@@ -133,6 +137,7 @@ public class ShouActivity extends AbsBaseActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 HotelBean hotelBean = (HotelBean) parent.getSelectedItem();
                 mSelectedHotelId = hotelBean.getId();
+                hotelName = hotelBean.getName();
                 presenter.getAddType(mSelectedHotelId);
                 presenter.getLoucInfo(hotelBean.getId());
             }
@@ -150,6 +155,7 @@ public class ShouActivity extends AbsBaseActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 HotelLzBean hotelLzBean = (HotelLzBean) parent.getSelectedItem();
                 mSelectedHotelLzId = hotelLzBean.getId();
+                hotelLcName = hotelLzBean.getName();
             }
 
             @Override
@@ -174,7 +180,7 @@ public class ShouActivity extends AbsBaseActivity
     }
 
     @Override
-    public void getAddType(List<GoodsModel> goodsModels) {
+    public void getAddType(ArrayList<GoodsModel> goodsModels) {
         if (goodsModels == null || goodsModels.size() == 0)
             return;
         goodsList = goodsModels;
@@ -189,13 +195,20 @@ public class ShouActivity extends AbsBaseActivity
     @Override
     public void add(String message) {
         ToastUitl.showShort(message);
+        // ①跳转打印机页面
+        Bundle bundle = new Bundle();
+        bundle.putString("hotel", hotelName);
+        bundle.putString("hotelLc", hotelLcName);
+        bundle.putString("beizhu", etContent.getEditTextContent());
+        bundle.putParcelableArrayList("printer_list", goodsList);
+        startNextActivity(bundle, PrinterActivity.class);
+        // ②清空提交数据
+        etContent.clear();
         for (GoodsModel model : goodsList) {
             model.setNum(0);
             model.setNum_wu(0);
         }
         mAdapter.reset();
-
-        etContent.clear();
     }
 
     @Override
@@ -338,5 +351,10 @@ public class ShouActivity extends AbsBaseActivity
     protected void onDestroy() {
         presenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+
     }
 }
