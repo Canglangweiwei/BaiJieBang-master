@@ -88,6 +88,14 @@ public class PrinterActivity extends AbsBaseActivity {
 
     }
 
+//    private void test() {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("username", "123");
+//        map.put("password", "123");
+//        Call<BaseBean> response = client.testJson(map);
+//        sendRequest1(response, RequestType.TEST, false);
+//    }
+
     @Override
     protected void initListener() {
         ntb.setOnBackListener(new View.OnClickListener() {
@@ -104,7 +112,7 @@ public class PrinterActivity extends AbsBaseActivity {
     }
 
     @Override
-    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
-
+    public void onLoadSuccessCallBack(String dataJson, RequestType type) {
+        ToastUitl.showShort(dataJson);
     }
 }

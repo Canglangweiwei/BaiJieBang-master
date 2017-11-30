@@ -38,7 +38,8 @@ public class HttpManager {
                 .baseUrl(SERVER_URL)
                 .addConverterFactory(
                         GsonConverterFactory.create(new GsonBuilder().create()))
-                .client(genericClient()).build();
+                .client(genericClient())
+                .build();
     }
 
     private OkHttpClient genericClient() {

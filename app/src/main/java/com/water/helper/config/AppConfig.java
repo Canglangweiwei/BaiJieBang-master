@@ -38,7 +38,7 @@ public class AppConfig {
      */
     public static final String BASE_URL = "http://1.89892528.cn:7776/";
 
-    public static final String sServiceUrl = "http://app.taihuawuye.com.cn:8100/appPhone/rest/";
+    public static final String sServiceUrl = "http://0.89892528.cn:8700/";
 
     public static String API_KEY_RESULT = "result";
     public static String API_KEY_ERROR = "errorCode";

@@ -6,7 +6,7 @@ package com.water.helper.webservice;
 public enum RequestType {
 
     /**
-     * 打印机
+     * 测试
      */
-    PRINTER,
+    TEST,
 }

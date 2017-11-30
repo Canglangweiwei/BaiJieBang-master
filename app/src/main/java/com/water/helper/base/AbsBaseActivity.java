@@ -16,8 +16,10 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.water.helper.R;
 import com.water.helper.app.AbsAppComponent;
+import com.water.helper.bean.BaseBean;
 import com.water.helper.bean.UserBean;
 import com.water.helper.config.AppConfig;
+import com.water.helper.webservice.HttpManager;
 import com.water.helper.webservice.RequestType;
 import com.water.helper.webservice.WebAPI;
 
@@ -51,6 +53,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         setContentView(initLayoutResID());
         ButterKnife.bind(this);
         mGson = new Gson();
+        client = HttpManager.getInstance().createService();
         mBaseUserBean = AbsBaseApplication.sApp.getUserInfo();
         parseIntent();
         setupComponent(AbsBaseApplication.sApp.component());
@@ -225,7 +228,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * 封装网络请求
      *******************/
 
-    public abstract void onLoadSuccessCallBack(String jsonData, RequestType type);
+    public abstract void onLoadSuccessCallBack(String dataJson, RequestType type);
 
     /**
      * 发起网络请求
@@ -280,5 +283,56 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     protected void sendRequest(Call<Map<String, Object>> response,
                                final RequestType type, boolean allowShowDialog) {
         sendRequestAsCtrl(response, type, allowShowDialog);
+    }
+
+    /**
+     * 发起网络请求
+     */
+    private void sendRequestAsCtrl1(Call<BaseBean> response,
+                                    final RequestType type, boolean showDialog) {
+        // 进度条
+        if (showDialog) {
+            LoadingDialog.showDialogForLoading(this);
+        }
+
+        response.enqueue(new Callback<BaseBean>() {
+
+            @Override
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                LoadingDialog.cancelDialogForLoading();
+                if (response == null || response.body() == null) {
+                    ToastUitl.showShort("未能获取到数据，可能服务器停止服务了");
+                    return;
+                }
+                BaseBean requestResult = response.body();
+                if (requestResult == null) {
+                    ToastUitl.showShort("出错了，但不是知道为什么");
+                } else {
+                    int result = requestResult.getResult();
+                    if (result == 1) {
+                        onLoadSuccessCallBack(requestResult.getData(), type);
+                    } else if (result == 0) {
+                        ToastUitl.showShort(requestResult.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseBean> arg0, Throwable arg1) {
+                LoadingDialog.cancelDialogForLoading();
+                if (arg1 instanceof UnknownHostException) {
+                    ToastUitl.showShort("无法连接服务器");
+                } else if (arg1 instanceof SocketTimeoutException) {
+                    ToastUitl.showShort("超时,请稍后重试");
+                } else {
+                    ToastUitl.showShort("服务器无法处理请求");
+                }
+            }
+        });
+    }
+
+    protected void sendRequest1(Call<BaseBean> response,
+                                final RequestType type, boolean allowShowDialog) {
+        sendRequestAsCtrl1(response, type, allowShowDialog);
     }
 }

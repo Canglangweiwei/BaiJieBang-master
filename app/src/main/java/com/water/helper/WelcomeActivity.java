@@ -115,7 +115,7 @@ public class WelcomeActivity extends AbsBaseActivity implements LoginContract.Vi
     }
 
     @Override
-    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+    public void onLoadSuccessCallBack(String dataJson, RequestType type) {
 
     }
 }

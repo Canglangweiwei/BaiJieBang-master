@@ -247,7 +247,7 @@ public class ShouListActivity extends AbsBaseActivity
     }
 
     @Override
-    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+    public void onLoadSuccessCallBack(String dataJson, RequestType type) {
 
     }
 

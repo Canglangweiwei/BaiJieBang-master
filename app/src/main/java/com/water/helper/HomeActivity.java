@@ -105,8 +105,8 @@ public class HomeActivity extends AbsBaseActivity {
             @Override
             public void onClick(View view) {
                 mdAlertDialog = new MDAlertDialog.Builder(HomeActivity.this)
-                        .setHeight(0.25f)  //屏幕高度*0.3
-                        .setWidth(0.7f)  //屏幕宽度*0.7
+                        .setHeight(0.25f)       // 屏幕高度 * 0.3
+                        .setWidth(0.7f)         // 屏幕宽度 * 0.7
                         .setTitleVisible(true)
                         .setTitleText("温馨提示")
                         .setTitleTextColor(R.color.black_light)
@@ -156,7 +156,7 @@ public class HomeActivity extends AbsBaseActivity {
     }
 
     @Override
-    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+    public void onLoadSuccessCallBack(String dataJson, RequestType type) {
 
     }
 
@@ -170,7 +170,6 @@ public class HomeActivity extends AbsBaseActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         DataSupport.deleteAll(UserBean.class);
-        AbsBaseApplication.sApp.setUserInfo(null);
         AbsBaseApplication.sApp.finishAllActivity();
     }
 }

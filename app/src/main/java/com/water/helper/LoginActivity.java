@@ -138,7 +138,7 @@ public class LoginActivity extends AbsBaseActivity implements LoginContract.View
     }
 
     @Override
-    public void onLoadSuccessCallBack(String jsonData, RequestType type) {
+    public void onLoadSuccessCallBack(String dataJson, RequestType type) {
 
     }
 }
