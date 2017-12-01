@@ -73,8 +73,8 @@ public class FaListExpandableListViewAdapter extends BaseExpandableListAdapter {
         SimpleAdapter mSimpleAdapter =
                 new SimpleAdapter(context, setGridViewData(gridViewChild.get(groupPosition)),
                         R.layout.channel_listview_item,
-                        new String[]{"channel_gridview_i_txt", "channel_listview_y_sum", "channel_listview_w_sum", "channel_listview_z_sum"},
-                        new int[]{R.id.fa_name, R.id.fa_y_sum, R.id.fa_w_sum, R.id.fa_z_sum});
+                        new String[]{"channel_gridview_i_txt", "channel_listview_z_sum"},
+                        new int[]{R.id.fa_name, R.id.fa_z_sum});
         mViewChild.listView.setAdapter(mSimpleAdapter);
         return convertView;
     }
@@ -87,8 +87,6 @@ public class FaListExpandableListViewAdapter extends BaseExpandableListAdapter {
         for (FaChildBean aData : data) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("channel_gridview_i_txt", aData.getName());
-            hashMap.put("channel_listview_y_sum", aData.getY_sum());
-            hashMap.put("channel_listview_w_sum", aData.getN_sum());
             hashMap.put("channel_listview_z_sum", aData.getZ_sum());
             gridItem.add(hashMap);
         }

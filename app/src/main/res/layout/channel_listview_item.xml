@@ -21,42 +21,12 @@
         android:background="@color/list_divider" />
 
     <TextView
-        android:id="@+id/fa_y_sum"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="已送"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_small" />
-
-    <View
-        android:layout_width="0.5dp"
-        android:layout_height="match_parent"
-        android:background="@color/list_divider" />
-
-    <TextView
-        android:id="@+id/fa_w_sum"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="未送"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/font_small" />
-
-    <View
-        android:layout_width="0.5dp"
-        android:layout_height="match_parent"
-        android:background="@color/list_divider" />
-
-    <TextView
         android:id="@+id/fa_z_sum"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="总量"
+        android:text="出库数量"
         android:textColor="@color/gray"
         android:textSize="@dimen/font_small" />
 </LinearLayout>
