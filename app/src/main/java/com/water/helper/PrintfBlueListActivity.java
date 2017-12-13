@@ -208,6 +208,7 @@ public class PrintfBlueListActivity extends AbsBaseActivity {
                 unregisterReceiver(mReceiver);
                 ToastUitl.showShort(getString(R.string.stop_search));
             } catch (Exception e) {
+
             }
         }
         if (mBluetoothAdapter != null) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.jaydenxiao.common.commonutils.ViewHolderUtil;
 import com.water.helper.R;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class BlueListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public BluetoothDevice getItem(int position) {
         return deviceList.get(position);
     }
 
@@ -42,24 +43,16 @@ public class BlueListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BlueListViewAdapterHolder holder = null;
         if (convertView == null) {
-            holder = new BlueListViewAdapterHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.blue_list_item, null, false);
-            holder.tv_blue_list_address = (TextView) convertView.findViewById(R.id.tv_blue_list_address);
-            holder.tv_blue_list_name = (TextView) convertView.findViewById(R.id.tv_blue_list_name);
-            convertView.setTag(holder);
-        } else {
-            holder = (BlueListViewAdapterHolder) convertView.getTag();
+            convertView = LayoutInflater.from(context).inflate(R.layout.blue_list_item, parent, false);
         }
 
-        BluetoothDevice device = (BluetoothDevice) getItem(position);
-        holder.tv_blue_list_address.setText(device.getAddress());
-        holder.tv_blue_list_name.setText(device.getName());
-        return convertView;
-    }
+        TextView tv_blue_list_name = ViewHolderUtil.get(convertView, R.id.tv_blue_list_name);
+        TextView tv_blue_list_address = ViewHolderUtil.get(convertView, R.id.tv_blue_list_address);
 
-    static class BlueListViewAdapterHolder {
-        TextView tv_blue_list_name, tv_blue_list_address;
+        BluetoothDevice device = getItem(position);
+        tv_blue_list_name.setText(device.getName());
+        tv_blue_list_address.setText(device.getAddress());
+        return convertView;
     }
 }

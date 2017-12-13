@@ -12,15 +12,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jaydenxiao.common.commonutils.ViewHolderUtil;
 import com.water.helper.R;
 import com.water.helper.bean.GoodsModel;
 import com.water.helper.util.SimpleTextWather;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 @SuppressWarnings("ALL")
 public class GoodsAdapter extends BaseAdapter {
@@ -64,50 +62,52 @@ public class GoodsAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_line_shou, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
         }
+        TextView tvName = ViewHolderUtil.get(convertView, R.id.item_add_goods_name);
+        final EditText etLine = ViewHolderUtil.get(convertView, R.id.item_goods_num);
+        TextView tvNumWu = ViewHolderUtil.get(convertView, R.id.item_wu_goods_num);
+        RelativeLayout item_good_reduce = ViewHolderUtil.get(convertView, R.id.ly_item_goods_reduce);
+        RelativeLayout item_good_add = ViewHolderUtil.get(convertView, R.id.ly_item_goods_add);
+        RelativeLayout item_good_reduce_wu = ViewHolderUtil.get(convertView, R.id.ly_item_wu_goods_reduce);
+        RelativeLayout item_good_add_wu = ViewHolderUtil.get(convertView, R.id.ly_item_wu_goods_add);
 
         final GoodsModel goodsModel = goodsModels.get(position);
-        viewHolder.tvName.setText(goodsModel.getTitle());
-        viewHolder.tvNumWu.setText(String.valueOf(goodsModel.getNum_wu()));
+        tvName.setText(goodsModel.getTitle());
+        tvNumWu.setText(String.valueOf(goodsModel.getNum_wu()));
 
-        if (viewHolder.etLine.getTag() instanceof TextWatcher) {
-            viewHolder.etLine.removeTextChangedListener((TextWatcher) (viewHolder.etLine.getTag()));
+        if (etLine.getTag() instanceof TextWatcher) {
+            etLine.removeTextChangedListener((TextWatcher) (etLine.getTag()));
         }
 
         if (TextUtils.isEmpty(String.valueOf(goodsModel.getNum()))) {
-            viewHolder.etLine.setText("0");
+            etLine.setText("0");
         } else {
-            viewHolder.etLine.setText(String.valueOf(goodsModel.getNum()));
+            etLine.setText(String.valueOf(goodsModel.getNum()));
         }
 
         if (goodsModel.isFocus()) {
-            if (!viewHolder.etLine.isFocused()) {
-                viewHolder.etLine.requestFocus();
+            if (!etLine.isFocused()) {
+                etLine.requestFocus();
             }
             CharSequence text = String.valueOf(goodsModel.getNum());
-            viewHolder.etLine.setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
+            etLine.setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
         } else {
-            if (viewHolder.etLine.isFocused()) {
-                viewHolder.etLine.clearFocus();
+            if (etLine.isFocused()) {
+                etLine.clearFocus();
             }
         }
 
-        viewHolder.etLine.setOnTouchListener(new View.OnTouchListener() {
+        etLine.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(final View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     final boolean focus = goodsModel.isFocus();
                     check(position);
-                    if (!focus && !viewHolder.etLine.isFocused()) {
-                        viewHolder.etLine.requestFocus();
-                        viewHolder.etLine.onWindowFocusChanged(true);
+                    if (!focus && !etLine.isFocused()) {
+                        etLine.requestFocus();
+                        etLine.onWindowFocusChanged(true);
                     }
                 }
                 return false;
@@ -124,11 +124,11 @@ public class GoodsAdapter extends BaseAdapter {
                 callback.inputGoods(position, String.valueOf(s));
             }
         };
-        viewHolder.etLine.addTextChangedListener(watcher);
-        viewHolder.etLine.setTag(watcher);
+        etLine.addTextChangedListener(watcher);
+        etLine.setTag(watcher);
 
         // 常规加
-        viewHolder.item_good_add.setOnClickListener(new View.OnClickListener() {
+        item_good_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enFoucs();
@@ -139,7 +139,7 @@ public class GoodsAdapter extends BaseAdapter {
             }
         });
         // 常规减
-        viewHolder.item_good_reduce.setOnClickListener(new View.OnClickListener() {
+        item_good_reduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enFoucs();
@@ -150,7 +150,7 @@ public class GoodsAdapter extends BaseAdapter {
             }
         });
         // 重污加
-        viewHolder.item_good_add_wu.setOnClickListener(new View.OnClickListener() {
+        item_good_add_wu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enFoucs();
@@ -161,7 +161,7 @@ public class GoodsAdapter extends BaseAdapter {
             }
         });
         // 重污减
-        viewHolder.item_good_reduce_wu.setOnClickListener(new View.OnClickListener() {
+        item_good_reduce_wu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enFoucs();
@@ -184,28 +184,6 @@ public class GoodsAdapter extends BaseAdapter {
     private void enFoucs() {
         for (GoodsModel l : goodsModels) {
             l.setFocus(false);
-        }
-    }
-
-    class ViewHolder {
-        @Bind(R.id.item_add_goods_name)
-        TextView tvName;
-        @Bind(R.id.item_goods_num)
-        EditText etLine;
-        @Bind(R.id.item_wu_goods_num)
-        TextView tvNumWu;
-        @Bind(R.id.ly_item_goods_reduce)
-        RelativeLayout item_good_reduce;
-        @Bind(R.id.ly_item_goods_add)
-        RelativeLayout item_good_add;
-
-        @Bind(R.id.ly_item_wu_goods_reduce)
-        RelativeLayout item_good_reduce_wu;
-        @Bind(R.id.ly_item_wu_goods_add)
-        RelativeLayout item_good_add_wu;
-
-        ViewHolder(View itemView) {
-            ButterKnife.bind(this, itemView);
         }
     }
 

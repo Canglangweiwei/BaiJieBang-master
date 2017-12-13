@@ -83,7 +83,7 @@ public class ShouListExpandableListViewAdapter extends BaseExpandableListAdapter
                         R.layout.channel_gridview_item, new String[]{"channel_gridview_item"},
                         new int[]{R.id.channel_gridview_item});
         mViewChild.gridView.setAdapter(mSimpleAdapter);
-//        setGridViewListener(mViewChild.gridView);
+        setGridViewListener(mViewChild.gridView);
         return convertView;
     }
 

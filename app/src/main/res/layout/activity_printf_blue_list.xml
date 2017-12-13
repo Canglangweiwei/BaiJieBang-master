@@ -17,7 +17,7 @@
         android:gravity="center_vertical"
         android:padding="8dp"
         android:text="已配对打印机"
-        android:textColor="@color/black"
+        android:textColor="@color/txt_red"
         android:textSize="18sp"
         android:textStyle="bold" />
 
