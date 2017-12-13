@@ -2,6 +2,7 @@ package com.water.helper.manager;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
+import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.water.helper.R;
 
 import static android.view.Gravity.NO_GRAVITY;
@@ -99,21 +100,30 @@ public class PopupWindowManager {
                     String typeText = et_main_type.getText().toString().trim();
                     String numberText = et_main_number.getText().toString().trim();
                     String serverText = et_main_severe_number.getText().toString().trim();
-                    if (!typeText.equals("") && !numberText.equals("") && !serverText.equals("")) {
-                        try {
-                            if (popCallback != null) {
-                                popCallback.callBack(typeText, numberText, serverText);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(context, "数据异常", Toast.LENGTH_SHORT).show();
+
+                    if (TextUtils.isEmpty(typeText)) {
+                        ToastUitl.showShort("请输入类型");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(numberText)) {
+                        ToastUitl.showShort("请输入数量");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(serverText)) {
+                        ToastUitl.showShort("请输入重污数量");
+                        return;
+                    }
+                    // 数据回调给主页面
+                    try {
+                        if (popCallback != null) {
+                            popCallback.callBack(typeText, numberText, serverText);
                         }
-                        if (popupWindow != null) {
-                            popupWindow.dismiss();
-                            popupWindow = null;
-                        }
-                    } else {
-                        Toast.makeText(context, "请完善数据", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        ToastUitl.showShort("数据异常");
+                    }
+                    if (popupWindow != null) {
+                        popupWindow.dismiss();
+                        popupWindow = null;
                     }
                     break;
             }
