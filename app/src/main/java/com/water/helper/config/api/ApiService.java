@@ -76,4 +76,11 @@ public interface ApiService {
     @POST("xidi/add.php")
     Observable<BaseModel> Upload(@Field("dataJson") String dataJson, @Field("username") String username,
                                  @Field("hid") int hid, @Field("lc") int lc, @Field("beizhu") String beizhu);
+
+    /**
+     * 添加收货类型
+     */
+    @FormUrlEncoded
+    @POST("xidi/addNewType.php")
+    Observable<BaseModel> AddNewType(@Field("hotel_id") int hotel_id, @Field("type_name") String type_name);
 }

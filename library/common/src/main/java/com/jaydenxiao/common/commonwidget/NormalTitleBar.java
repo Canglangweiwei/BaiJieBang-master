@@ -2,6 +2,7 @@ package com.jaydenxiao.common.commonwidget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -138,6 +139,14 @@ public class NormalTitleBar extends RelativeLayout {
 
     public void setRightTitle(String text) {
         tvRight.setText(text);
+    }
+
+    public String getRightTitleText() {
+        String txt = tvRight.getText().toString().trim();
+        if (TextUtils.isEmpty(txt)) {
+            return "";
+        }
+        return txt;
     }
 
     /**

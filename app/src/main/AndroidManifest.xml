@@ -34,6 +34,9 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:name=".base.AbsBaseApplication"
         android:allowBackup="true"
@@ -78,6 +81,12 @@
         <!-- 收货打印机管理页面 -->
         <activity
             android:name=".PrinterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 收货打印机设备列表页面 -->
+        <activity
+            android:name=".PrintfBlueListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
@@ -202,5 +211,16 @@
             android:name="JPUSH_APPKEY"
             android:value="bc8fc120b33fd9884c95da72" /> <!--  </>值来自开发者平台取得的AppKey-->
         <!--******************************** 极光推送 *******************************/ -->
+
+        <!-- 蓝牙打印机 -->
+        <receiver
+            android:name=".receiver.NameOfBroadcastReceiverClass"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.BOND_STATE_CHANGED" /><!--连接状态改变-->
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" /><!--蓝牙适配器状态改变-->
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" /><!--连接已经断开-->
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

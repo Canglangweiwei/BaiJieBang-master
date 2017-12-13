@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import rx.Subscriber;
 
 /**
- * 用户登录
+ * 收货管理
  */
 @SuppressWarnings("ALL")
 public class ShouPresenter implements ShouContract.Presenter {
@@ -33,10 +33,16 @@ public class ShouPresenter implements ShouContract.Presenter {
 
     }
 
+    /**
+     * 获取宾馆信息
+     *
+     * @param a_id 小区id
+     */
     @Override
     public void getBinGuanInfo(String a_id) {
         HttpPost httpPost = new HttpPost();
         httpPost.Get_BinGuanInfo(a_id, new Subscriber<BaseResponse<List<HotelBean>>>() {
+
             @Override
             public void onCompleted() {
 
@@ -65,10 +71,16 @@ public class ShouPresenter implements ShouContract.Presenter {
         });
     }
 
+    /**
+     * 获取楼层信息
+     *
+     * @param hid 宾馆id
+     */
     @Override
     public void getLoucInfo(int hid) {
         HttpPost httpPost = new HttpPost();
         httpPost.Get_LoucengInfo(hid, new Subscriber<BaseResponse<List<HotelLzBean>>>() {
+
             @Override
             public void onCompleted() {
 
@@ -97,10 +109,16 @@ public class ShouPresenter implements ShouContract.Presenter {
         });
     }
 
+    /**
+     * 获取收货类型
+     *
+     * @param hid 宾馆id
+     */
     @Override
     public void getAddType(int hid) {
         HttpPost httpPost = new HttpPost();
         httpPost.Get_AddType(hid, new Subscriber<BaseModel>() {
+
             @Override
             public void onCompleted() {
 
@@ -135,6 +153,15 @@ public class ShouPresenter implements ShouContract.Presenter {
         });
     }
 
+    /**
+     * 新增收货信息
+     *
+     * @param dataJson
+     * @param username
+     * @param hid
+     * @param lc
+     * @param beizhu
+     */
     @Override
     public void add(String dataJson, String username, int hid, int lc, String beizhu) {
         HttpPost httpPost = new HttpPost();
@@ -153,7 +180,7 @@ public class ShouPresenter implements ShouContract.Presenter {
             @Override
             public void onNext(BaseModel baseModel) {
                 if (baseModel == null) {
-                    view.onFailureCallback(1002, "收货信息提交失败");
+                    view.onFailureCallback(1002, "收货信息添加失败");
                     return;
                 }
                 if (!baseModel.isSuccess()) {
@@ -164,6 +191,47 @@ public class ShouPresenter implements ShouContract.Presenter {
                 }
                 // 解析收货类型
                 view.add(baseModel.getData());
+            }
+        });
+    }
+
+    /**
+     * 新增收货类型
+     *
+     * @param hotel_id
+     * @param type_name
+     */
+    @Override
+    public void addNewType(int hotel_id, String type_name) {
+        HttpPost httpPost = new HttpPost();
+        httpPost.AddNewType(hotel_id, type_name, new Subscriber<BaseModel>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.onFailureCallback(e);
+            }
+
+            @Override
+            public void onNext(BaseModel baseModel) {
+                if (baseModel == null) {
+                    view.onFailureCallback(1002, "收货类型添加失败");
+                    return;
+                }
+                if (!baseModel.isSuccess()) {
+                    int code = baseModel.getCode();
+                    String message = baseModel.getMessage();
+                    view.onFailureCallback(code, message);
+                    return;
+                }
+                Gson mGson = new Gson();
+                GoodsModel model = mGson.fromJson(baseModel.getData(), GoodsModel.class);
+                // 解析收货类型
+                view.addNewType(model);
             }
         });
     }

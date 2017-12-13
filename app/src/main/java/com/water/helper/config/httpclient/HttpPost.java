@@ -74,4 +74,11 @@ public class HttpPost {
     public void Upload(String dataJson, String username, int hid, int lc, String beizhu, Subscriber<BaseModel> subscriber) {
         retrofitFactory.httpSubscribe(retrofitFactory.getApiService().Upload(dataJson, username, hid, lc, beizhu), subscriber);
     }
+
+    /**
+     * 添加新的收货类型
+     */
+    public void AddNewType(int hotel_id, String type_name, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().AddNewType(hotel_id, type_name), subscriber);
+    }
 }

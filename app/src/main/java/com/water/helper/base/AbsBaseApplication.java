@@ -13,12 +13,16 @@ import com.water.helper.app.AbsAppComponent;
 import com.water.helper.app.DaggerAbsAppComponent;
 import com.water.helper.bean.UserBean;
 import com.water.helper.config.AppConfig;
+import com.water.helper.manager.PopupWindowManager;
+import com.water.helper.manager.PrintfManager;
 import com.water.helper.message.MessageReceiver;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.Set;
 import java.util.Stack;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -32,6 +36,12 @@ public class AbsBaseApplication extends BaseApplication {
 
     private UserBean usInfo;                    // 用户信息
 
+    private ExecutorService cachedThreadPool;
+
+    public ExecutorService getCachedThreadPool() {
+        return cachedThreadPool;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,11 +50,23 @@ public class AbsBaseApplication extends BaseApplication {
         XgoLog.logInit(AppConfig.LOG_DEBUG);
         sApp = this;
         setApplicationComponent();
+
+        // 初始化蓝牙打印机设置
+        initBlePrinter();
         // 极光推送初始化
         // 初始化 JPush
         JPushInterface.init(this);
         // 设置开启日志,发布时请关闭日志
         JPushInterface.setDebugMode(true);
+    }
+
+    /**
+     * 初始化蓝牙打印机设置
+     */
+    private void initBlePrinter(){
+        cachedThreadPool = Executors.newCachedThreadPool();
+        PopupWindowManager.getInstance(getApplicationContext());
+        PrintfManager.getInstance(getApplicationContext());
     }
 
     private AbsAppComponent absAppComponent;

@@ -21,6 +21,8 @@ public interface ShouContract {
         void getAddType(ArrayList<GoodsModel> goodsModels);
 
         void add(String message);
+
+        void addNewType(GoodsModel model);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,5 +34,7 @@ public interface ShouContract {
         void getAddType(int hid);
 
         void add(String dataJson, String username, int hid, int lc, String beizhu);
+
+        void addNewType(int hotel_id, String type_name);
     }
 }

@@ -21,6 +21,7 @@ import com.water.helper.config.component.DaggerShouPresenterComponent;
 import com.water.helper.config.contract.ShouContract;
 import com.water.helper.config.module.ShouModule;
 import com.water.helper.config.presenter.ShouPresenter;
+import com.water.helper.manager.PopupWindowManager;
 import com.water.helper.webservice.RequestType;
 import com.water.helper.widget.CalcEditLenView;
 import com.wevey.selector.dialog.DialogOnClickListener;
@@ -47,6 +48,9 @@ public class ShouActivity extends AbsBaseActivity
     @Bind(R.id.ntb)
     NormalTitleBar ntb;
 
+    @Bind(R.id.root)
+    View rootView;
+
     @Bind(R.id.add_goods_spinner_b)
     Spinner s_bg;   // 宾馆
     @Bind(R.id.add_goods_spinner_l)
@@ -61,10 +65,14 @@ public class ShouActivity extends AbsBaseActivity
     private GoodsAdapter mAdapter;
     private ArrayList<GoodsModel> goodsList;
 
+    private PopupWindowManager popupWindowManager;
+
     private CommonFilterHotelListAdapter hotelListAdapter;
     private CommonFilterHotelLzListAdapter hotelLzListAdapter;
     private int mSelectedHotelId, mSelectedHotelLzId;
     private String hotelName, hotelLcName;
+
+    private String mNumber, mServerNumber;
 
     @Inject
     ShouPresenter presenter;
@@ -91,6 +99,8 @@ public class ShouActivity extends AbsBaseActivity
     @Override
     protected void initUi() {
         ntb.setTitleText("收货管理");
+        popupWindowManager = PopupWindowManager.getInstance();
+
         initBgMenu();
         initLcMenu();
     }
@@ -165,6 +175,11 @@ public class ShouActivity extends AbsBaseActivity
         });
     }
 
+    /**
+     * 获取宾馆信息
+     *
+     * @param bins 宾馆列表
+     */
     @Override
     public void getBinGuanInfo(List<HotelBean> bins) {
         if (bins == null)
@@ -172,6 +187,11 @@ public class ShouActivity extends AbsBaseActivity
         hotelListAdapter.addData(bins);
     }
 
+    /**
+     * 获取楼层信息
+     *
+     * @param lous 楼层列表
+     */
     @Override
     public void getLoucInfo(List<HotelLzBean> lous) {
         if (lous == null)
@@ -179,6 +199,11 @@ public class ShouActivity extends AbsBaseActivity
         hotelLzListAdapter.addData(lous);
     }
 
+    /**
+     * 收货类型
+     *
+     * @param goodsModels 收货类型列表
+     */
     @Override
     public void getAddType(ArrayList<GoodsModel> goodsModels) {
         if (goodsModels == null || goodsModels.size() == 0)
@@ -209,6 +234,33 @@ public class ShouActivity extends AbsBaseActivity
             model.setNum_wu(0);
         }
         mAdapter.reset();
+    }
+
+    /**
+     * 添加新的收货类型回调
+     *
+     * @param model 返回新类型
+     */
+    @Override
+    public void addNewType(GoodsModel model) {
+        if (model == null) {
+            ToastUitl.showShort("类型添加失败");
+            return;
+        }
+        GoodsModel mode = new GoodsModel();
+        mode.setTitle(model.getTitle());
+        if (TextUtils.isEmpty(mNumber)) {
+            mode.setNum(0);
+        } else {
+            mode.setNum(Integer.parseInt(mNumber));
+        }
+        if (TextUtils.isEmpty(mServerNumber)) {
+            mode.setNum_wu(0);
+        } else {
+            mode.setNum_wu(Integer.parseInt(mServerNumber));
+        }
+        goodsList.add(mode);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -290,40 +342,55 @@ public class ShouActivity extends AbsBaseActivity
 
     private MDAlertDialog mdAlertDialog;
 
-    @OnClick({R.id.add_goods_btn_submit})
+    @OnClick({R.id.btn_add_more, R.id.add_goods_btn_submit})
     void submit(View view) {
-        mdAlertDialog = new MDAlertDialog.Builder(ShouActivity.this)
-                .setHeight(0.25f)  //屏幕高度*0.3
-                .setWidth(0.7f)  //屏幕宽度*0.7
-                .setTitleVisible(true)
-                .setTitleText("温馨提示")
-                .setTitleTextColor(R.color.black_light)
-                .setContentText("是否要提交收货信息？")
-                .setContentTextColor(R.color.black_light)
-                .setLeftButtonText("取消")
-                .setLeftButtonTextColor(R.color.black_light)
-                .setRightButtonText("确认")
-                .setRightButtonTextColor(R.color.gray)
-                .setTitleTextSize(16)
-                .setContentTextSize(14)
-                .setButtonTextSize(14)
-                .setOnclickListener(new DialogOnClickListener() {
-
+        switch (view.getId()) {
+            case R.id.btn_add_more:// 添加更多
+                popupWindowManager.showPopupWindow(rootView);
+                popupWindowManager.setPopCallback(new PopupWindowManager.PopCallback() {
                     @Override
-                    public void clickLeftButton(View view) {
-                        mdAlertDialog.dismiss();
+                    public void callBack(String type, String number, String serverNumber) {
+                        mNumber = number;
+                        mServerNumber = serverNumber;
+                        presenter.addNewType(mSelectedHotelId, type);
                     }
+                });
+                break;
+            case R.id.add_goods_btn_submit:// 提交
+                mdAlertDialog = new MDAlertDialog.Builder(ShouActivity.this)
+                        .setHeight(0.25f)  //屏幕高度*0.3
+                        .setWidth(0.7f)  //屏幕宽度*0.7
+                        .setTitleVisible(true)
+                        .setTitleText("温馨提示")
+                        .setTitleTextColor(R.color.black_light)
+                        .setContentText("是否要提交收货信息？")
+                        .setContentTextColor(R.color.black_light)
+                        .setLeftButtonText("取消")
+                        .setLeftButtonTextColor(R.color.black_light)
+                        .setRightButtonText("确认")
+                        .setRightButtonTextColor(R.color.gray)
+                        .setTitleTextSize(16)
+                        .setContentTextSize(14)
+                        .setButtonTextSize(14)
+                        .setOnclickListener(new DialogOnClickListener() {
 
-                    @Override
-                    public void clickRightButton(View view) {
-                        mdAlertDialog.dismiss();
-                        // 提交收货信息
-                        upload();
-                    }
-                })
-                .build();
-        if (!isFinishing())
-            mdAlertDialog.show();
+                            @Override
+                            public void clickLeftButton(View view) {
+                                mdAlertDialog.dismiss();
+                            }
+
+                            @Override
+                            public void clickRightButton(View view) {
+                                mdAlertDialog.dismiss();
+                                // 提交收货信息
+                                upload();
+                            }
+                        })
+                        .build();
+                if (!isFinishing())
+                    mdAlertDialog.show();
+                break;
+        }
     }
 
     /**
@@ -343,7 +410,6 @@ public class ShouActivity extends AbsBaseActivity
         }
         String username = mBaseUserBean.getUsername();
         String beizhu = etContent.getEditTextContent();
-        System.out.println(builder.toString());
         presenter.add(builder.toString(), username, mSelectedHotelId, mSelectedHotelLzId, beizhu);
     }
 

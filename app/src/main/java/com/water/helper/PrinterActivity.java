@@ -1,6 +1,7 @@
 package com.water.helper;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.water.helper.adapter.PrinterListAdapter;
 import com.water.helper.app.AbsAppComponent;
 import com.water.helper.base.AbsBaseActivity;
 import com.water.helper.bean.GoodsModel;
+import com.water.helper.manager.PrintfManager;
 import com.water.helper.webservice.RequestType;
 
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class PrinterActivity extends AbsBaseActivity {
 
     private String hotelName, hotelLcName, beizhu;// 宾馆、楼层、备注信息
     private ArrayList<GoodsModel> printerList;// 打印列表
+
+    // 打印机相关
+    private PrintfManager printfManager;
 
     @Override
     protected int initLayoutResID() {
@@ -85,7 +90,8 @@ public class PrinterActivity extends AbsBaseActivity {
 
     @Override
     protected void initDatas() {
-
+        printfManager = PrintfManager.getInstance();
+        printfManager.defaultConnection();
     }
 
 //    private void test() {
@@ -104,15 +110,46 @@ public class PrinterActivity extends AbsBaseActivity {
                 onBackPressed();
             }
         });
+        ntb.setRightTitleVisibility(true);
+        ntb.setRightTitle("未连接蓝牙");
+        ntb.setOnRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startNextActivity(null, PrintfBlueListActivity.class);
+            }
+        });
+
+        printfManager.addBluetoothChangLister(new PrintfManager.BluetoothChangLister() {
+            @Override
+            public void chang(String name) {
+                if (TextUtils.isEmpty(name)) {
+                    return;
+                }
+                if (ntb == null) {
+                    return;
+                }
+                ntb.setRightTitle(name);
+            }
+        });
     }
 
     @OnClick({R.id.btn_print})
     void print(View view) {
-        ToastUitl.showShort("开始打印");
+        if (printfManager.isConnect()) {
+            printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, printerList);
+        } else {
+            startNextActivity(null, PrintfBlueListActivity.class);
+        }
     }
 
     @Override
     public void onLoadSuccessCallBack(String dataJson, RequestType type) {
         ToastUitl.showShort(dataJson);
+    }
+
+    @Override
+    protected void onDestroy() {
+        printfManager.removeAllMessage();
+        super.onDestroy();
     }
 }

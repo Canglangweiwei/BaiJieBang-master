@@ -50,27 +50,30 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library:jpush')  // 对话框工具包
-    compile project(':library:irecyclerview')   // 万能适配器和recyclerview
-    compile project(':library:selectordialog')  // 对话框工具包
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':library:jpush')
+    // 对话框工具包
+    compile project(':library:irecyclerview')
+    // 万能适配器和recyclerview
+    compile project(':library:selectordialog')
+    // 对话框工具包
     // Dagger2
     provided 'javax.annotation:javax.annotation-api:1.2'
     compile 'com.google.dagger:dagger:2.0.2'
     apt 'com.google.dagger:dagger-compiler:2.0.2'
-
     // okhttp3
     compile 'com.squareup:otto:1.3.8'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-
     // 网络加载框架retrofit2
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     // rx
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.5'
+
+    // 打印机相关
+    compile 'com.github.promeg:tinypinyin:1.0.0'
+    compile files('libs/AndroidPrinterSDK3.0.jar')
 }
