@@ -44,7 +44,7 @@ public class AbsBaseApplication extends BaseApplication {
         sApp = this;
         // 是否允许打印日志
         XgoLog.logInit(AppConfig.LOG_DEBUG);
-        sApp = this;
+        // Dagger注入
         setApplicationComponent();
 
         // 初始化蓝牙打印机设置
