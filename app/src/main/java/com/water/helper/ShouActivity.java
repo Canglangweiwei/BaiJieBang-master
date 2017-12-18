@@ -200,7 +200,7 @@ public class ShouActivity extends AbsBaseActivity
     }
 
     /**
-     * 收货类型
+     * 获取收货类型
      *
      * @param goodsModels 收货类型列表
      */
@@ -213,7 +213,7 @@ public class ShouActivity extends AbsBaseActivity
     }
 
     /**
-     * 添加收货信息
+     * 提交收货信息
      *
      * @param message 提示信息
      */

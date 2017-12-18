@@ -1,6 +1,5 @@
 package com.water.helper.base;
 
-import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +19,6 @@ import com.water.helper.message.MessageReceiver;
 import org.litepal.crud.DataSupport;
 
 import java.util.Set;
-import java.util.Stack;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,8 +29,6 @@ import cn.jpush.android.api.TagAliasCallback;
 public class AbsBaseApplication extends BaseApplication {
 
     public static AbsBaseApplication sApp;
-
-    private Stack<Activity> activityStack;// activity栈
 
     private UserBean usInfo;                    // 用户信息
 
@@ -63,7 +59,7 @@ public class AbsBaseApplication extends BaseApplication {
     /**
      * 初始化蓝牙打印机设置
      */
-    private void initBlePrinter(){
+    private void initBlePrinter() {
         cachedThreadPool = Executors.newCachedThreadPool();
         PopupWindowManager.getInstance(getApplicationContext());
         PrintfManager.getInstance(getApplicationContext());
@@ -89,7 +85,7 @@ public class AbsBaseApplication extends BaseApplication {
 
     /**
      * 获取用户信息
-     **/
+     */
     public void setUserInfo(UserBean userBean) {
         this.usInfo = userBean;
         // 清空数据表
@@ -107,7 +103,7 @@ public class AbsBaseApplication extends BaseApplication {
 
     /**
      * 保存用户信息
-     **/
+     */
     public UserBean getUserInfo() {
         if (usInfo == null) {
             usInfo = DataSupport.findFirst(UserBean.class);
@@ -122,7 +118,9 @@ public class AbsBaseApplication extends BaseApplication {
         return sApp.getUserInfo() != null;
     }
 
-    // 登录或者注册成功之后，绑定推送
+    /**
+     * 登录或者注册成功之后，绑定推送
+     */
     public void initPush() {
         registerMessageReceiver();
         if (JPushInterface.isPushStopped(curActivity)) {
@@ -134,7 +132,9 @@ public class AbsBaseApplication extends BaseApplication {
         bindPushID();
     }
 
-    // 绑定推送ID
+    /**
+     * 绑定推送ID
+     */
     private void bindPushID() {
         if (sApp.getUserInfo() == null
                 || TextUtils.isEmpty(getUserInfo().getUsername())) {
@@ -153,16 +153,16 @@ public class AbsBaseApplication extends BaseApplication {
                                 break;
                             case 6002:
                                 logs =
-                                        "Failed to set alias and tags due to timeout. Try again after 60s.";
+                                        "由于超时而设置别名和标记失败,60s后再试一次。";
                                 if (NetUtil.getNetworkType() == NetUtil.NETWORK_TYPE_NONE) {
                                     handler.sendMessageDelayed(
                                             handler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
                                 } else {
-                                    logs = "No network";
+                                    logs = "没有网络";
                                 }
                                 break;
                             default:
-                                logs = "Failed with errorCode = " + code;
+                                logs = "错误代码：" + code;
                         }
                         XgoLog.logd(logs);
                     }
