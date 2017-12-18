@@ -5,6 +5,7 @@
     <color name="colorAccent">#0069AC</color>
 
     <color name="text_common_gray_deep">#435356</color>
+    <color name="toast_stroke_gray">#99d4d4d4</color>
 
     <!-- app主色调-->
     <color name="main_color">#0069AC</color>
