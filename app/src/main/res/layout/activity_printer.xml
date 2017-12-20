@@ -27,7 +27,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbars="none">
 
         <LinearLayout
@@ -187,16 +188,20 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="3" />
-
-            <Button
-                android:id="@+id/btn_print"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/green_w_bg"
-                android:text="打印"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_large" />
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/red_w_bg"
+        android:text="打印"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_large" />
 </LinearLayout>

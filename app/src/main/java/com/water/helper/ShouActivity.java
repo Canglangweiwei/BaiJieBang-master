@@ -149,7 +149,7 @@ public class ShouActivity extends AbsBaseActivity
                 mSelectedHotelId = hotelBean.getId();
                 hotelName = hotelBean.getName();
                 presenter.getAddType(mSelectedHotelId);
-                presenter.getLoucInfo(hotelBean.getId());
+                presenter.getLoucInfo(mSelectedHotelId);
             }
 
             @Override

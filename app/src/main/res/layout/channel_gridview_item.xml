@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/channel_gridview_item"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="32dp"
     android:background="#f0f0f0"
     android:ellipsize="end"
     android:gravity="center"
