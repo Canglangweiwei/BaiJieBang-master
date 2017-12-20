@@ -280,15 +280,10 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         });
     }
 
-    protected void sendRequest(Call<Map<String, Object>> response,
-                               final RequestType type, boolean allowShowDialog) {
-        sendRequestAsCtrl(response, type, allowShowDialog);
-    }
-
     /**
      * 发起网络请求
      */
-    private void sendRequestAsCtrl1(Call<BaseBean> response,
+    private final void sendRequestAsCtrl1(Call<BaseBean> response,
                                     final RequestType type, boolean showDialog) {
         // 进度条
         if (showDialog) {
@@ -329,6 +324,11 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void sendRequest(Call<Map<String, Object>> response,
+                               final RequestType type, boolean allowShowDialog) {
+        sendRequestAsCtrl(response, type, allowShowDialog);
     }
 
     protected void sendRequest1(Call<BaseBean> response,
