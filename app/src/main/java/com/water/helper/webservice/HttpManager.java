@@ -5,6 +5,7 @@ import com.jaydenxiao.common.commonutils.XgoLog;
 import com.water.helper.config.AppConfig;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -78,6 +79,9 @@ public class HttpManager {
                             }
                         })
                 .addInterceptor(getHtttpLoggingInterceptor())
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
     }
 
