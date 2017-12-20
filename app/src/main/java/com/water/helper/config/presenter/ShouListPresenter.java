@@ -26,6 +26,8 @@ public class ShouListPresenter implements ShouListContract.Presenter {
 
     private ShouListContract.View view;
 
+    private Gson mGson = new Gson();
+
     @Inject
     public ShouListPresenter() {
 
@@ -90,7 +92,6 @@ public class ShouListPresenter implements ShouListContract.Presenter {
                     return;
                 }
 
-                Gson mGson = new Gson();
                 Type type = new TypeToken<ShouResultBean>(){}.getType();
                 ShouResultBean sBean = mGson.fromJson(baseModel.getData(), type);
                 // 解析收货统计列表

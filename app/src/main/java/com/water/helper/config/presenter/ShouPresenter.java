@@ -28,6 +28,8 @@ public class ShouPresenter implements ShouContract.Presenter {
 
     private ShouContract.View view;
 
+    private Gson mGson = new Gson();
+
     @Inject
     public ShouPresenter() {
 
@@ -142,7 +144,6 @@ public class ShouPresenter implements ShouContract.Presenter {
                     return;
                 }
 
-                Gson mGson = new Gson();
                 Type type = new TypeToken<List<GoodsModel>>() {
                 }.getType();
                 ArrayList<GoodsModel> goodsModels = mGson.fromJson(baseModel.getData(), type);
@@ -228,7 +229,6 @@ public class ShouPresenter implements ShouContract.Presenter {
                     view.onFailureCallback(code, message);
                     return;
                 }
-                Gson mGson = new Gson();
                 GoodsModel model = mGson.fromJson(baseModel.getData(), GoodsModel.class);
                 // 解析收货类型
                 view.addNewType(model);

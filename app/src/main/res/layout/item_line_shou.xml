@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/item_add_goods_name"
         android:layout_width="80dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:maxLines="3"
         android:textColor="@color/black"
@@ -27,7 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
@@ -38,33 +38,33 @@
                 android:layout_gravity="center_vertical"
                 android:text="常规"
                 android:textColor="@color/black"
-                android:textSize="@dimen/font_middle" />
+                android:textSize="@dimen/font_middle"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:layout_width="148dp"
-                android:layout_height="wrap_content"
+                android:layout_width="208dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/ly_item_goods_reduce"
-                    android:layout_width="40dp"
+                    android:layout_width="56dp"
                     android:layout_height="match_parent">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="12dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_goods_fitting_reduce" />
                 </RelativeLayout>
 
                 <EditText
                     android:id="@+id/item_goods_num"
-                    android:layout_width="76dp"
-                    android:layout_height="32dp"
+                    android:layout_width="94dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/windows_bg"
                     android:focusable="true"
@@ -77,14 +77,14 @@
 
                 <RelativeLayout
                     android:id="@+id/ly_item_goods_add"
-                    android:layout_width="40dp"
+                    android:layout_width="56dp"
                     android:layout_height="match_parent">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="8dp"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_goods_fitting_add" />
                 </RelativeLayout>
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
-                android:text="单位(个)"
+                android:text="个"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/font_normal" />
         </LinearLayout>
@@ -106,7 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/t2"

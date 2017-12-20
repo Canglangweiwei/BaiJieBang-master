@@ -79,7 +79,7 @@ public class PopupWindowManager {
     }
 
     public void showPopupWindow(View v) {
-        showPopupWindow("", "", "", v);
+        showPopupWindow("", "", "0", v);
     }
 
     public interface PopCallback {
@@ -87,14 +87,11 @@ public class PopupWindowManager {
     }
 
     class MyOnClickListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.cancel:
-                    if (popupWindow != null) {
-                        popupWindow.dismiss();
-                        popupWindow = null;
-                    }
                     break;
                 case R.id.determine:
                     String typeText = et_main_type.getText().toString().trim();
@@ -121,11 +118,13 @@ public class PopupWindowManager {
                     } catch (Exception e) {
                         ToastUitl.showShort("数据异常");
                     }
-                    if (popupWindow != null) {
-                        popupWindow.dismiss();
-                        popupWindow = null;
-                    }
                     break;
+                default:
+                    break;
+            }
+            if (popupWindow != null) {
+                popupWindow.dismiss();
+                popupWindow = null;
             }
         }
     }

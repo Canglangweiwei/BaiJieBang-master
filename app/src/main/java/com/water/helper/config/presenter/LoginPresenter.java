@@ -20,6 +20,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View view;
 
+    private Gson mGson = new Gson();
+
     @Inject
     public LoginPresenter() {
 
@@ -52,7 +54,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                             view.onFailureCallback(code, message);
                             return;
                         }
-                        Gson mGson = new Gson();
                         UserBean userBean = mGson.fromJson(loginResultBean.getData(), UserBean.class);
                         // 解析用户信息
                         view.getUserinfo(userBean);

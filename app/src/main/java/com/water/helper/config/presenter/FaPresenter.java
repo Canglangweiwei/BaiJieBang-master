@@ -23,6 +23,8 @@ public class FaPresenter implements FaContract.Presenter {
 
     private FaContract.View view;
 
+    private Gson mGson = new Gson();
+
     @Inject
     public FaPresenter() {
 
@@ -89,7 +91,6 @@ public class FaPresenter implements FaContract.Presenter {
                     return;
                 }
 
-                Gson mGson = new Gson();
                 Type type = new TypeToken<FaResultBean>() {
                 }.getType();
                 FaResultBean fBean = mGson.fromJson(baseModel.getData(), type);

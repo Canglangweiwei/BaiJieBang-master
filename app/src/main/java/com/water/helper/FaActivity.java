@@ -104,7 +104,8 @@ public class FaActivity extends AbsBaseActivity
     private void initSwipeRefreshLayout() {
         mSRLayout.setOnRefreshListener(this);
         mSRLayout.setColorSchemeResources(android.R.color.holo_orange_light,
-                android.R.color.holo_blue_bright, android.R.color.holo_green_light);
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light);
         mSRLayout.setDistanceToTriggerSync(400);
     }
 
@@ -139,6 +140,14 @@ public class FaActivity extends AbsBaseActivity
                 return false;
             }
         });
+    }
+
+    /**
+     * 页面下拉刷新
+     */
+    @Override
+    public void onRefresh() {
+        presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
     }
 
     @Override
@@ -184,23 +193,28 @@ public class FaActivity extends AbsBaseActivity
 
     @OnClick({R.id.ll_tj_date, R.id.tv_tj_date})
     void onClickSelectDate(View v) {
-        TimePickerDialog pickerDialog = new TimePickerDialog(this);
-        pickerDialog.setDateType(DateType.DATE);
-        pickerDialog.setListener(new TimePickerDialog.OnTimePickerDialogListener() {
-            @Override
-            public void onTimeSelect(String timeSelect) {
-                mSelectedDateTime = timeSelect;
-                mTvDate.setText(timeSelect);
-                presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
-            }
+        switch (v.getId()) {
+            case R.id.ll_tj_date:
+            case R.id.tv_tj_date:
+                TimePickerDialog pickerDialog = new TimePickerDialog(this);
+                pickerDialog.setDateType(DateType.DATE);
+                pickerDialog.setListener(new TimePickerDialog.OnTimePickerDialogListener() {
+                    @Override
+                    public void onTimeSelect(String timeSelect) {
+                        mSelectedDateTime = timeSelect;
+                        mTvDate.setText(timeSelect);
+                        presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
+                    }
 
-            @Override
-            public void onErrorDate(String errorDate) {
-                ToastUitl.showShort(errorDate + "是无效日期");
-            }
-        });
-        if (!isFinishing())
-            pickerDialog.show();
+                    @Override
+                    public void onErrorDate(String errorDate) {
+                        ToastUitl.showShort(errorDate + "是无效日期");
+                    }
+                });
+                if (!isFinishing())
+                    pickerDialog.show();
+                break;
+        }
     }
 
     @Override
@@ -214,9 +228,11 @@ public class FaActivity extends AbsBaseActivity
     public void getFaList(FaResultBean resultBean) {
         // 停止刷新
         mSRLayout.setRefreshing(false);
+        // 重置数据
         mExpandableListViewAdapter.resetData(resultBean.getGroup(), resultBean.getChild());
-
+        // 页面更新(关闭和展开)
         mExpandableListView.collapseGroup(0);
+        // 展开
         mExpandableListView.expandGroup(0);
     }
 
@@ -224,6 +240,7 @@ public class FaActivity extends AbsBaseActivity
     public void onFailureCallback(Throwable throwable) {
         // 停止刷新
         mSRLayout.setRefreshing(false);
+        // 信息提示
         ToastUitl.showShort("请检查网络连接");
     }
 
@@ -231,11 +248,13 @@ public class FaActivity extends AbsBaseActivity
     public void onFailureCallback(int errorCode, String errorMsg) {
         // 停止刷新
         mSRLayout.setRefreshing(false);
+        // 信息提示
         ToastUitl.showShort(errorMsg);
     }
 
     @Override
     protected void onDestroy() {
+        // 解除页面绑定
         presenter.detachView();
         super.onDestroy();
     }
@@ -243,10 +262,5 @@ public class FaActivity extends AbsBaseActivity
     @Override
     public void onLoadSuccessCallBack(String dataJson, RequestType type) {
 
-    }
-
-    @Override
-    public void onRefresh() {
-        presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
     }
 }

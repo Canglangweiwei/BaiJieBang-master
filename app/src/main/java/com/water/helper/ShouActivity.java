@@ -219,6 +219,9 @@ public class ShouActivity extends AbsBaseActivity
      */
     @Override
     public void add(String message) {
+        // 取消加载框显示
+        stopProgressDialog();
+        // 提示消息
         ToastUitl.showShort(message);
         // ①跳转打印机页面
         Bundle bundle = new Bundle();
@@ -247,29 +250,33 @@ public class ShouActivity extends AbsBaseActivity
             ToastUitl.showShort("类型添加失败");
             return;
         }
-        GoodsModel mode = new GoodsModel();
-        mode.setTitle(model.getTitle());
         if (TextUtils.isEmpty(mNumber)) {
-            mode.setNum(0);
+            model.setNum(0);
         } else {
-            mode.setNum(Integer.parseInt(mNumber));
+            model.setNum(Integer.parseInt(mNumber));
         }
         if (TextUtils.isEmpty(mServerNumber)) {
-            mode.setNum_wu(0);
+            model.setNum_wu(0);
         } else {
-            mode.setNum_wu(Integer.parseInt(mServerNumber));
+            model.setNum_wu(Integer.parseInt(mServerNumber));
         }
-        goodsList.add(mode);
+        goodsList.add(model);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onFailureCallback(Throwable throwable) {
+        // 取消加载框显示
+        stopProgressDialog();
+        // 提示消息
         ToastUitl.showShort("请检查网络连接");
     }
 
     @Override
     public void onFailureCallback(int errorCode, String errorMsg) {
+        // 取消加载框显示
+        stopProgressDialog();
+        // 提示消息
         ToastUitl.showShort(errorMsg);
     }
 
@@ -410,6 +417,9 @@ public class ShouActivity extends AbsBaseActivity
         }
         String username = mBaseUserBean.getUsername();
         String beizhu = etContent.getEditTextContent();
+        // 显示提交加载框
+        startProgressDialog();
+        // 数据提交
         presenter.add(builder.toString(), username, mSelectedHotelId, mSelectedHotelLzId, beizhu);
     }
 

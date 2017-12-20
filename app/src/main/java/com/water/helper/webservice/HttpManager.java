@@ -1,6 +1,7 @@
 package com.water.helper.webservice;
 
 import com.google.gson.GsonBuilder;
+import com.jaydenxiao.common.commonutils.XgoLog;
 import com.water.helper.config.AppConfig;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,24 +44,41 @@ public class HttpManager {
                 .build();
     }
 
+    /**
+     * 日志打印
+     */
+    private static HttpLoggingInterceptor getHtttpLoggingInterceptor() {
+        return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                // 过滤BOM头
+                message = message.replaceAll("\ufeff", "");
+                XgoLog.loge("结果集：", message);
+            }
+        }).setLevel(HttpLoggingInterceptor.Level.BODY);
+    }
+
     private OkHttpClient genericClient() {
-        return new OkHttpClient.Builder().addInterceptor(
-                new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain
-                                .request()
-                                .newBuilder()
-                                .addHeader("Content-Type",
-                                        "application/x-www-form-urlencoded; charset=UTF-8")
-                                .addHeader("Accept-Encoding", "gzip, deflate")
-                                .addHeader("Connection", "keep-alive")
-                                .addHeader("Accept", "*/*")
-                                .addHeader("Cookie", "add cookies here")
-                                .build();
-                        return chain.proceed(request);
-                    }
-                }).build();
+        return new OkHttpClient.Builder()
+                .addInterceptor(
+                        new Interceptor() {
+                            @Override
+                            public Response intercept(Chain chain) throws IOException {
+                                Request request = chain
+                                        .request()
+                                        .newBuilder()
+                                        .addHeader("Content-Type",
+                                                "application/x-www-form-urlencoded; charset=UTF-8")
+                                        .addHeader("Accept-Encoding", "gzip, deflate")
+                                        .addHeader("Connection", "keep-alive")
+                                        .addHeader("Accept", "*/*")
+                                        .addHeader("Cookie", "add cookies here")
+                                        .build();
+                                return chain.proceed(request);
+                            }
+                        })
+                .addInterceptor(getHtttpLoggingInterceptor())
+                .build();
     }
 
     public synchronized WebAPI createService() {
