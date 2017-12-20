@@ -15,9 +15,8 @@
         android:id="@+id/channel_item_child_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f0f0f0"
         android:divider="@color/list_divider"
         android:dividerHeight="0.5dp"
         android:footerDividersEnabled="false"
-        android:headerDividersEnabled="true" />
+        android:headerDividersEnabled="false" />
 </LinearLayout>
