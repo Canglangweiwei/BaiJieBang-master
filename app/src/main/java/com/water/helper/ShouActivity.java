@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonutils.XgoLog;
 import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 import com.water.helper.adapter.CommonFilterHotelListAdapter;
 import com.water.helper.adapter.CommonFilterHotelLzListAdapter;
@@ -169,7 +170,7 @@ public class ShouActivity extends AbsBaseActivity
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -182,7 +183,7 @@ public class ShouActivity extends AbsBaseActivity
      */
     @Override
     public void getBinGuanInfo(List<HotelBean> bins) {
-        if (bins == null)
+        if (bins == null || bins.size() == 0)
             return;
         hotelListAdapter.addData(bins);
     }
@@ -194,9 +195,11 @@ public class ShouActivity extends AbsBaseActivity
      */
     @Override
     public void getLoucInfo(List<HotelLzBean> lous) {
-        if (lous == null)
+        if (lous == null || lous.size() == 0)
             return;
         hotelLzListAdapter.addData(lous);
+        // 获取默认的第一个item的值
+        mSelectedHotelLzId = lous.get(0).getId();
     }
 
     /**
@@ -419,6 +422,10 @@ public class ShouActivity extends AbsBaseActivity
         String beizhu = etContent.getEditTextContent();
         // 显示提交加载框
         startProgressDialog();
+        // 参数打印
+        XgoLog.logd("参数：dataJson=" + builder.toString()
+                + "&username=" + username + "&hid=" + mSelectedHotelId
+                + "&lc=" + mSelectedHotelLzId + "&beizhu=" + beizhu);
         // 数据提交
         presenter.add(builder.toString(), username, mSelectedHotelId, mSelectedHotelLzId, beizhu);
     }

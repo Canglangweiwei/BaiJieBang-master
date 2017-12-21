@@ -30,7 +30,8 @@ public class CommonFilterHotelLzListAdapter extends BaseAdapter {
     public void addData(List<HotelLzBean> list) {
         if (list == null)
             return;
-        this.data = list;
+        this.data.clear();
+        this.data.addAll(list);
         this.notifyDataSetChanged();
     }
 
