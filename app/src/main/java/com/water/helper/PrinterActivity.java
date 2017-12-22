@@ -7,11 +7,13 @@ import android.widget.TextView;
 
 import com.jaydenxiao.common.commonutils.DateTimeUtil;
 import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.jaydenxiao.common.commonwidget.NoScrollListView;
 import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 import com.water.helper.adapter.PrinterListAdapter;
 import com.water.helper.app.AbsAppComponent;
 import com.water.helper.base.AbsBaseActivity;
+import com.water.helper.base.AbsBaseApplication;
 import com.water.helper.bean.GoodsModel;
 import com.water.helper.manager.PrintfManager;
 import com.water.helper.webservice.RequestType;
@@ -136,7 +138,13 @@ public class PrinterActivity extends AbsBaseActivity {
     @OnClick({R.id.btn_print})
     void print(View view) {
         if (printfManager.isConnect()) {
-            printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, printerList);
+            LoadingDialog.showDialogForLoading(this, "正在打印，请稍后...", false);
+            AbsBaseApplication.sApp.getCachedThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, printerList);
+                }
+            });
         } else {
             startNextActivity(null, PrintfBlueListActivity.class);
         }

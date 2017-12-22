@@ -3,6 +3,8 @@ package com.water.helper.manager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 
@@ -10,6 +12,7 @@ import com.android.print.sdk.PrinterConstants;
 import com.android.print.sdk.PrinterInstance;
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.water.helper.R;
 import com.water.helper.base.AbsBaseApplication;
 import com.water.helper.bean.GoodsModel;
@@ -20,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 打印机管理
+ */
 @SuppressWarnings("ALL")
 public class PrintfManager {
 
@@ -163,20 +169,23 @@ public class PrintfManager {
      * @param operator  ： 操作人
      * @param remark    ：备注
      */
-    public void printf(String hotelName, String floor,
-                       String operator, String remark,
-                       List<GoodsModel> modeList) {
+    public void printf(final String hotelName, final String floor,
+                       final String operator, final String remark,
+                       final List<GoodsModel> modeList) {
         try {
-            printTabSpace(5);
+            // 图片打印
+            printLogoImage();
+            printfWrap();
+            printTabSpace(12);
             printText("青岛柏洁洗涤有限公司收货单");
             printfWrap(2);
             printTwoColumn("宾\u3000馆：", hotelName);
-            printTabSpace(5);
-            printTwoColumn("楼层：", floor);
+            printfWrap();
+            printTwoColumn("楼\u3000层：", floor);
             printfWrap();
             printTwoColumn("操作人：", operator);
-            printTabSpace(5);
-            printTwoColumn("时间：", Util.stampToDate(System.currentTimeMillis()));
+            printfWrap();
+            printTwoColumn("时\u3000间：", Util.stampToDate(System.currentTimeMillis()));
             printfWrap();
             printPlusLine();
             printText("类型");
@@ -213,9 +222,11 @@ public class PrintfManager {
             printText("客服电话：0532-83716111");
             printfWrap();
             printText("客户签字：");
-            printfWrap(4);
+            printfWrap(5);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            LoadingDialog.cancelDialogForLoading();
         }
     }
 
@@ -314,8 +325,76 @@ public class PrintfManager {
         mPrinter.sendByteData(getGbk(text));
     }
 
+    /**
+     * 打印图片
+     */
+    private void printLogoImage() throws IOException {
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.printf_bitmap);
+        byte[] bytes = bitmap2PrinterBytes(bitmap, 17);
+        mPrinter.sendByteData(bytes);
+    }
+
+    private static byte[] bitmap2PrinterBytes(Bitmap bitmap, int left) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        byte[] imgbuf = new byte[(width / 8 + left + 4) * height];
+        byte[] bitbuf = new byte[width / 8];
+        int[] p = new int[8];
+        int s = 0;
+
+        for (int y = 0; y < height; ++y) {
+            int n;
+            for (n = 0; n < width / 8; ++n) {
+                int value;
+                for (value = 0; value < 8; ++value) {
+                    int grey = bitmap.getPixel(n * 8 + value, y);
+                    int red = ((grey & 0x00FF0000) >> 16);
+                    int green = ((grey & 0x0000FF00) >> 8);
+                    int blue = (grey & 0x000000FF);
+                    int gray = (int) (0.29900 * red + 0.58700 * green + 0.11400 * blue); // 灰度转化公式
+//                    int gray = (int) ((float) red * 0.3 + (float) green * 0.59 + (float) blue * 0.11);
+                    if (gray <= 128) {
+                        gray = 1;
+                    } else {
+                        gray = 0;
+                    }
+                    p[value] = gray;
+//                    if(bitmap.getPixel(n * 8 + value, y) >128 ) {
+//                        p[value] = 1;
+//                    } else {
+//                        p[value] = 0;
+//                    }
+                }
+                value = p[0] * 128 + p[1] * 64 + p[2] * 32 + p[3] * 16 + p[4] * 8 + p[5] * 4 + p[6] * 2 + p[7];
+                bitbuf[n] = (byte) value;
+            }
+            if (y != 0) {
+                ++s;
+                imgbuf[s] = 22;
+            } else {
+                imgbuf[s] = 22;
+            }
+            ++s;
+            imgbuf[s] = (byte) (width / 8 + left);
+            for (n = 0; n < left; ++n) {
+                ++s;
+                imgbuf[s] = 0;
+            }
+            for (n = 0; n < width / 8; ++n) {
+                ++s;
+                imgbuf[s] = bitbuf[n];
+            }
+            ++s;
+            imgbuf[s] = 21;
+            ++s;
+            imgbuf[s] = 1;
+        }
+        return imgbuf;
+    }
+
     public interface BluetoothChangLister {
         void chang(String name);
+
     }
 
     public void removeAllMessage() {
