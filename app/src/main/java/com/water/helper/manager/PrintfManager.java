@@ -169,15 +169,17 @@ public class PrintfManager {
      * @param operator  ： 操作人
      * @param remark    ：备注
      */
-    public void printf(final String hotelName, final String floor,
+    public final void printf(final String hotelName, final String floor,
                        final String operator, final String remark,
                        final List<GoodsModel> modeList) {
         try {
             // 图片打印
             printLogoImage();
             printfWrap();
-            printTabSpace(12);
-            printText("青岛柏洁洗涤有限公司收货单");
+            printTabSpace(17);
+            boldOn();// 加粗
+            printLargeText("收货单");
+            boldOff();// 取消加粗
             printfWrap(2);
             printTwoColumn("宾\u3000馆：", hotelName);
             printfWrap();
@@ -228,6 +230,58 @@ public class PrintfManager {
         } finally {
             LoadingDialog.cancelDialogForLoading();
         }
+    }
+
+    /**
+     * 字体大小
+     *
+     * @param text
+     * @throws IOException
+     */
+    public void printLargeText(String text) throws IOException {
+
+        byte[] result1 = new byte[3];
+        result1[0] = 0x1b;
+        result1[1] = 0x21;
+        result1[2] = 48;// 代表字体的大小
+
+        mPrinter.sendByteData(result1);
+        mPrinter.sendByteData(getGbk(text));
+
+        byte[] result2 = new byte[3];
+        result2[0] = 0x1b;
+        result2[1] = 0x21;
+        result2[2] = 0;// 代表字体的大小
+
+        mPrinter.sendByteData(result2);
+    }
+
+    /**
+     * 选择加粗模式
+     *
+     * @return
+     */
+    private void boldOn() throws IOException {
+        byte[] result = new byte[3];
+        result[0] = 27;
+        result[1] = 69;
+        result[2] = 0xF;
+
+        mPrinter.sendByteData(result);
+    }
+
+    /**
+     * 取消加粗模式
+     *
+     * @return
+     */
+    private void boldOff() throws IOException {
+        byte[] result = new byte[3];
+        result[0] = 27;
+        result[1] = 69;
+        result[2] = 0;
+
+        mPrinter.sendByteData(result);
     }
 
     /**
@@ -330,7 +384,7 @@ public class PrintfManager {
      */
     private void printLogoImage() throws IOException {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.printf_bitmap);
-        byte[] bytes = bitmap2PrinterBytes(bitmap, 17);
+        byte[] bytes = bitmap2PrinterBytes(bitmap, 18);
         mPrinter.sendByteData(bytes);
     }
 
@@ -394,7 +448,6 @@ public class PrintfManager {
 
     public interface BluetoothChangLister {
         void chang(String name);
-
     }
 
     public void removeAllMessage() {
