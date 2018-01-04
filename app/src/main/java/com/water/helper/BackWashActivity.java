@@ -69,6 +69,8 @@ public class BackWashActivity extends AbsBaseActivity
 
     private ChukuMxAdapter mxAdapter;
 
+    private boolean ifon = false;
+
     @Inject
     BackWashPresenter presenter;
 
@@ -131,12 +133,12 @@ public class BackWashActivity extends AbsBaseActivity
 
     @Override
     protected void initDatas() {
-        // TODO 添加列表适配器等操作
+        mxAdapter = new ChukuMxAdapter(this, presenter);
+        myRecycler.setAdapter(mxAdapter);
+
         // 绑定页面
         presenter.attachView(this);
         presenter.getBinGuanInfo(TextUtils.isEmpty(mBaseUserBean.getA_id()) ? "" : mBaseUserBean.getA_id());
-        mxAdapter = new ChukuMxAdapter(this, presenter);
-        myRecycler.setAdapter(mxAdapter);
     }
 
     @Override
@@ -145,6 +147,19 @@ public class BackWashActivity extends AbsBaseActivity
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        ntb.setRightTitleVisibility(true);
+        ntb.setRightTitle("回换");
+        ntb.setOnRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!ifon) {
+                    mxAdapter.startOper();
+                } else {
+                    mxAdapter.cancelOper();
+                }
+                ifon = !ifon;
             }
         });
         // 设置宾馆列表的监听事件
@@ -233,6 +248,7 @@ public class BackWashActivity extends AbsBaseActivity
 
     @Override
     public void getChuKuMxInfo(List<ChuKuMxBean> chuKuMxList) {
+        ifon = false;
         mSRLayout.setRefreshing(false);
         if (chuKuMxList == null)
             return;
@@ -241,6 +257,7 @@ public class BackWashActivity extends AbsBaseActivity
 
     @Override
     public void huiHuanSuccess(String message) {
+        ifon = false;
         // 提示消息
         ToastUitl.showShort(message);
         presenter.getChuKuMx(mSelectedHotelId, mSelectedHotelLzId, mSelectedDateTime);
@@ -248,6 +265,7 @@ public class BackWashActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(Throwable throwable) {
+        ifon = false;
         mSRLayout.setRefreshing(false);
         // 提示消息
         ToastUitl.showShort("请检查网络连接");
@@ -255,6 +273,7 @@ public class BackWashActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(int errorCode, String errorMsg) {
+        ifon = false;
         mSRLayout.setRefreshing(false);
         // 提示消息
         ToastUitl.showShort(errorMsg);

@@ -42,4 +42,24 @@ public class ChukuMxAdapter extends BaseReclyerViewAdapter<ChuKuMxBean> {
             ((ChukuMxHolder) holder).setData(get(position), mPresenter);
         }
     }
+
+    /**
+     * 显示回洗按钮
+     */
+    public void startOper() {
+        for (ChuKuMxBean bean : data) {
+            bean.setMode(1);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 隐藏回洗按钮
+     */
+    public void cancelOper() {
+        for (ChuKuMxBean bean : data) {
+            bean.setMode(0);
+        }
+        notifyDataSetChanged();
+    }
 }

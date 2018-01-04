@@ -29,6 +29,7 @@ public class ChuKuMxBean {
     private String lc;
     private int hid;
     private String riqi;
+    private int mode;   // 0 - 不显示回洗按钮，1 - 显示回洗按钮
 
     public ChuKuMxBean() {
         super();
@@ -104,5 +105,13 @@ public class ChuKuMxBean {
 
     public void setRiqi(String riqi) {
         this.riqi = riqi;
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 }

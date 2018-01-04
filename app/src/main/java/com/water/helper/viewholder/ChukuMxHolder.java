@@ -94,6 +94,10 @@ public class ChukuMxHolder extends RecyclerView.ViewHolder {
         tvNumber.setText("数量：" + String.valueOf(bean.getShuLiang()) + "个");
         tvRqi.setText(bean.getRiqi());
 
+        // 控制回洗按钮是否显示
+        int mode = bean.getMode();
+        tvOperate.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
+
         tvOperate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
