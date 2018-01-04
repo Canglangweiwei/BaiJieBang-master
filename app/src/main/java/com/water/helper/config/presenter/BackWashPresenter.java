@@ -160,9 +160,9 @@ public class BackWashPresenter implements BackWashContract.Presenter {
      * @param cid 出库id
      */
     @Override
-    public void doHuiHuan(int cid) {
+    public void doHuiHuan(int cid, String username) {
         HttpPost httpPost = new HttpPost();
-        httpPost.HuiHuan(cid, new Subscriber<BaseModel>() {
+        httpPost.HuiHuan(cid, username, new Subscriber<BaseModel>() {
 
             @Override
             public void onCompleted() {

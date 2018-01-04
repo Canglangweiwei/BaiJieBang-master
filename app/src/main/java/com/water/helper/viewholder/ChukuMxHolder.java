@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.water.helper.R;
+import com.water.helper.base.AbsBaseApplication;
 import com.water.helper.bean.ChuKuMxBean;
 import com.water.helper.config.presenter.BackWashPresenter;
 import com.wevey.selector.dialog.DialogOnClickListener;
@@ -140,7 +141,8 @@ public class ChukuMxHolder extends RecyclerView.ViewHolder {
                     public void clickRightButton(View view) {
                         mdAlertDialog.dismiss();
                         // 回换操作
-                        mPresenter.doHuiHuan(id);
+                        String username = AbsBaseApplication.sApp.getUserInfo().getUsername();
+                        mPresenter.doHuiHuan(id, username);
                     }
                 })
                 .build();

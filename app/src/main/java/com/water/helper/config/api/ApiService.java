@@ -94,5 +94,5 @@ public interface ApiService {
      * 会换
      */
     @GET("xidi/huihuan.php")
-    Observable<BaseModel> HuiHuan(@Query("cid") int cid);
+    Observable<BaseModel> HuiHuan(@Query("cid") int cid, @Query("czr") String username);
 }

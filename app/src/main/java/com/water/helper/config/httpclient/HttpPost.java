@@ -92,7 +92,7 @@ public class HttpPost {
     /**
      * 回换
      */
-    public void HuiHuan(int cid, Subscriber<BaseModel> subscriber) {
-        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().HuiHuan(cid), subscriber);
+    public void HuiHuan(int cid, String username, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().HuiHuan(cid, username), subscriber);
     }
 }

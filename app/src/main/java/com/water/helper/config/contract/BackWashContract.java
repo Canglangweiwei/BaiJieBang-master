@@ -31,6 +31,6 @@ public interface BackWashContract {
 
         void getChuKuMx(int hid, int loc, String rqi);
 
-        void doHuiHuan(int cid);
+        void doHuiHuan(int cid, String username);
     }
 }
