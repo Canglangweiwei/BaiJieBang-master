@@ -8,45 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:id="@+id/am_ll_notice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/home_notice_select"
-            android:clickable="true"
-            android:padding="8dp"
-            tools:ignore="UselessParent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_larger"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/am_tv_notice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="4dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_middle"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -154,6 +116,43 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_middle"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/am_ll_back_wash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_back_wash_select"
+            android:clickable="true"
+            android:padding="8dp"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_larger"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/am_tv_back_wash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_margin="4dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_middle"

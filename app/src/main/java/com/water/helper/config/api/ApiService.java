@@ -83,4 +83,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("xidi/addNewType.php")
     Observable<BaseModel> AddNewType(@Field("hotel_id") int hotel_id, @Field("type_name") String type_name);
+
+    /**
+     * 出库列表
+     */
+    @GET("xidi/chuku.php")
+    Observable<BaseModel> Get_ChuKuMx(@Query("hid") int hid, @Query("loc") int loc, @Query("rqi") String rqi);
+
+    /**
+     * 会换
+     */
+    @GET("xidi/huihuan.php")
+    Observable<BaseModel> HuiHuan(@Query("cid") int cid);
 }

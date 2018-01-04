@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/low_gray"
     android:orientation="vertical">
 
     <com.jaydenxiao.common.commonwidget.NormalTitleBar
@@ -18,7 +19,19 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/add_goods_list_spinner_b"
+            android:id="@+id/back_wash_spinner_b"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@color/list_divider" />
+
+        <Spinner
+            android:id="@+id/back_wash_spinner_l"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -63,11 +76,14 @@
         android:layout_height="0.5dp"
         android:background="@color/list_divider" />
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/common_expand_listview" />
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fpl_rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

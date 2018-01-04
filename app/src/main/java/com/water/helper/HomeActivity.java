@@ -77,13 +77,10 @@ public class HomeActivity extends AbsBaseActivity {
 
     }
 
-    @OnClick({R.id.am_ll_notice, R.id.am_ll_shgl,
-            R.id.am_ll_shtj, R.id.am_ll_songhgl})
+    @OnClick({R.id.am_ll_shgl, R.id.am_ll_shtj,
+            R.id.am_ll_songhgl, R.id.am_ll_back_wash,})
     void onClickEvent(View view) {
         switch (view.getId()) {
-            case R.id.am_ll_notice:// 物业通知
-                ToastUitl.showShort("该功能暂未开放");
-                break;
             case R.id.am_ll_shgl:// 收货管理
                 startNextActivity(null, ShouActivity.class);
                 break;
@@ -92,6 +89,9 @@ public class HomeActivity extends AbsBaseActivity {
                 break;
             case R.id.am_ll_songhgl:// 送货管理
                 startNextActivity(null, FaActivity.class);
+                break;
+            case R.id.am_ll_back_wash:// 回洗管理
+                startNextActivity(null, BackWashActivity.class);
                 break;
         }
     }

@@ -237,7 +237,7 @@ public class ShouActivity extends AbsBaseActivity
         etContent.clear();
         for (GoodsModel model : goodsList) {
             model.setNum(0);
-            model.setNum_wu(0);
+            model.setHuixiNum(0);
         }
         mAdapter.reset();
     }
@@ -259,9 +259,9 @@ public class ShouActivity extends AbsBaseActivity
             model.setNum(Integer.parseInt(mNumber));
         }
         if (TextUtils.isEmpty(mServerNumber)) {
-            model.setNum_wu(0);
+            model.setHuixiNum(0);
         } else {
-            model.setNum_wu(Integer.parseInt(mServerNumber));
+            model.setHuixiNum(Integer.parseInt(mServerNumber));
         }
         goodsList.add(model);
         mAdapter.notifyDataSetChanged();
@@ -332,9 +332,9 @@ public class ShouActivity extends AbsBaseActivity
      * @param position 下标
      */
     @Override
-    public void addWu(View view, int position) {
+    public void addHuixi(View view, int position) {
         GoodsModel model = goodsList.get(position);
-        model.setNum_wu(model.getNum_wu() + 1);
+        model.setHuixiNum(model.getHuixiNum() + 1);
         mAdapter.reset();
     }
 
@@ -344,9 +344,9 @@ public class ShouActivity extends AbsBaseActivity
      * @param position 下标
      */
     @Override
-    public void reduceWu(int position) {
+    public void reduceHuixi(int position) {
         GoodsModel model = goodsList.get(position);
-        model.setNum_wu(model.getNum_wu() - 1);
+        model.setHuixiNum(model.getHuixiNum() - 1);
         mAdapter.reset();
     }
 
@@ -415,7 +415,9 @@ public class ShouActivity extends AbsBaseActivity
                     .append("/")
                     .append(model.getNum())
                     .append("/")
-                    .append(model.getNum_wu())
+                    .append(model.getHuixiNum())
+                    .append("/")
+                    .append(model.getTotalNum())
                     .append(",");
         }
         String username = mBaseUserBean.getUsername();

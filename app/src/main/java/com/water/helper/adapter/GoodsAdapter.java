@@ -67,15 +67,15 @@ public class GoodsAdapter extends BaseAdapter {
         }
         TextView tvName = ViewHolderUtil.get(convertView, R.id.item_add_goods_name);
         final EditText etLine = ViewHolderUtil.get(convertView, R.id.item_goods_num);
-        TextView tvNumWu = ViewHolderUtil.get(convertView, R.id.item_wu_goods_num);
+        TextView tvNumHuixi = ViewHolderUtil.get(convertView, R.id.item_huixi_goods_num);
         RelativeLayout item_good_reduce = ViewHolderUtil.get(convertView, R.id.ly_item_goods_reduce);
         RelativeLayout item_good_add = ViewHolderUtil.get(convertView, R.id.ly_item_goods_add);
-        RelativeLayout item_good_reduce_wu = ViewHolderUtil.get(convertView, R.id.ly_item_wu_goods_reduce);
-        RelativeLayout item_good_add_wu = ViewHolderUtil.get(convertView, R.id.ly_item_wu_goods_add);
+        RelativeLayout item_good_reduce_wu = ViewHolderUtil.get(convertView, R.id.ly_item_huixi_goods_reduce);
+        RelativeLayout item_good_add_wu = ViewHolderUtil.get(convertView, R.id.ly_item_huixi_goods_add);
 
         final GoodsModel goodsModel = goodsModels.get(position);
         tvName.setText(goodsModel.getTitle());
-        tvNumWu.setText(String.valueOf(goodsModel.getNum_wu()));
+        tvNumHuixi.setText(String.valueOf(goodsModel.getHuixiNum()));
 
         if (etLine.getTag() instanceof TextWatcher) {
             etLine.removeTextChangedListener((TextWatcher) (etLine.getTag()));
@@ -149,7 +149,7 @@ public class GoodsAdapter extends BaseAdapter {
                 callback.reduceGoods(position);
             }
         });
-        // 重污加
+        // 回洗加
         item_good_add_wu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,18 +157,18 @@ public class GoodsAdapter extends BaseAdapter {
                 if (callback == null) {
                     return;
                 }
-                callback.addWu(v, position);
+                callback.addHuixi(v, position);
             }
         });
-        // 重污减
+        // 回洗减
         item_good_reduce_wu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enFoucs();
-                if (callback == null || 0 == goodsModel.getNum_wu()) {
+                if (callback == null || 0 == goodsModel.getHuixiNum()) {
                     return;
                 }
-                callback.reduceWu(position);
+                callback.reduceHuixi(position);
             }
         });
         return convertView;
@@ -194,9 +194,9 @@ public class GoodsAdapter extends BaseAdapter {
 
         void reduceGoods(int position);
 
-        void addWu(View view, int position);
+        void addHuixi(View view, int position);
 
-        void reduceWu(int position);
+        void reduceHuixi(int position);
     }
 
     public void reset() {

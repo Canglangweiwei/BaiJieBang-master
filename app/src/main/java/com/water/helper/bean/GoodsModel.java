@@ -8,7 +8,8 @@ public class GoodsModel implements Parcelable {
 
     private int id;
     private int num;
-    private int num_wu;
+    private int huixiNum;
+    private int totalNum;
     private String title;
     private String dj;
     private boolean focus;
@@ -20,7 +21,8 @@ public class GoodsModel implements Parcelable {
     protected GoodsModel(Parcel in) {
         id = in.readInt();
         num = in.readInt();
-        num_wu = in.readInt();
+        huixiNum = in.readInt();
+        totalNum = in.readInt();
         title = in.readString();
         dj = in.readString();
         focus = in.readByte() != 0;
@@ -42,12 +44,20 @@ public class GoodsModel implements Parcelable {
         this.num = num;
     }
 
-    public int getNum_wu() {
-        return num_wu;
+    public int getHuixiNum() {
+        return huixiNum;
     }
 
-    public void setNum_wu(int num_wu) {
-        this.num_wu = num_wu;
+    public void setHuixiNum(int huixiNum) {
+        this.huixiNum = huixiNum;
+    }
+
+    public int getTotalNum() {
+        return num + huixiNum;
+    }
+
+    public void setTotalNum(int totalNum) {
+        this.totalNum = totalNum;
     }
 
     public String getTitle() {
@@ -95,7 +105,8 @@ public class GoodsModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeInt(num);
-        dest.writeInt(num_wu);
+        dest.writeInt(huixiNum);
+        dest.writeInt(totalNum);
         dest.writeString(title);
         dest.writeString(dj);
         dest.writeByte((byte) (focus ? 1 : 0));

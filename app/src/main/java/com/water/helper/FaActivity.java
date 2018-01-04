@@ -1,6 +1,5 @@
 package com.water.helper;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,14 +38,10 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/10/31 0031.
  */
 public class FaActivity extends AbsBaseActivity
-        implements FaContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+        implements FaContract.View {
 
     @Bind(R.id.ntb)
     NormalTitleBar ntb;
-
-    @Bind(R.id.swipe_container)
-    SwipeRefreshLayout mSRLayout;
 
     @Bind(R.id.add_goods_list_spinner_b)
     Spinner s_bg;   // 宾馆
@@ -90,23 +85,10 @@ public class FaActivity extends AbsBaseActivity
         mSelectedDateTime = DateTimeUtil.getClientDateFormat("yyyy-MM-dd");
         mTvDate.setText(DateTimeUtil.getClientDateFormat("yyyy-MM-dd"));
 
-        // 初始化页面刷新工具
-        initSwipeRefreshLayout();
         // 初始化宾馆菜单
         initBgMenu();
         // 初始化列表
         initExpandListView();
-    }
-
-    /**
-     * 初始化页面刷新工具
-     */
-    private void initSwipeRefreshLayout() {
-        mSRLayout.setOnRefreshListener(this);
-        mSRLayout.setColorSchemeResources(android.R.color.holo_orange_light,
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light);
-        mSRLayout.setDistanceToTriggerSync(400);
     }
 
     /**
@@ -140,14 +122,6 @@ public class FaActivity extends AbsBaseActivity
                 return false;
             }
         });
-    }
-
-    /**
-     * 页面下拉刷新
-     */
-    @Override
-    public void onRefresh() {
-        presenter.getList(mSelectedHotelID, mSelectedDateTime, mBaseUserBean.getUsername());
     }
 
     @Override
@@ -226,8 +200,6 @@ public class FaActivity extends AbsBaseActivity
 
     @Override
     public void getFaList(FaResultBean resultBean) {
-        // 停止刷新
-        mSRLayout.setRefreshing(false);
         // 重置数据
         mExpandableListViewAdapter.resetData(resultBean.getGroup(), resultBean.getChild());
         // 页面更新(关闭和展开)
@@ -238,16 +210,12 @@ public class FaActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(Throwable throwable) {
-        // 停止刷新
-        mSRLayout.setRefreshing(false);
         // 信息提示
         ToastUitl.showShort("请检查网络连接");
     }
 
     @Override
     public void onFailureCallback(int errorCode, String errorMsg) {
-        // 停止刷新
-        mSRLayout.setRefreshing(false);
         // 信息提示
         ToastUitl.showShort(errorMsg);
     }

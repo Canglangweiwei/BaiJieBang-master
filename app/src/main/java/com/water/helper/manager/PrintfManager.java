@@ -212,7 +212,7 @@ public class PrintfManager {
                 }
                 printText(number + sb.toString());
                 printTabSpace(10);
-                printText(String.valueOf(mode.getNum_wu()));
+                printText(String.valueOf(mode.getHuixiNum()));
                 printfWrap();
             }
             printPlusLine();

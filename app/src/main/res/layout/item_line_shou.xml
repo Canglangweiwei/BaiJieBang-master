@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/item_add_goods_name"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="112dp"
+        android:layout_height="112.5dp"
         android:gravity="center"
         android:maxLines="3"
         android:textColor="@color/black"
@@ -20,15 +20,17 @@
         android:layout_height="match_parent"
         android:background="@color/list_divider" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="8dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
@@ -38,12 +40,11 @@
                 android:layout_gravity="center_vertical"
                 android:text="常规"
                 android:textColor="@color/black"
-                android:textSize="@dimen/font_middle"
-                android:visibility="gone" />
+                android:textSize="@dimen/font_normal" />
 
             <LinearLayout
                 android:layout_width="208dp"
-                android:layout_height="56dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -101,48 +102,51 @@
                 android:textSize="@dimen/font_normal" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/list_divider" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/t2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="重污"
+                android:text="回洗"
                 android:textColor="@color/txt_red"
-                android:textSize="@dimen/font_middle" />
+                android:textSize="@dimen/font_normal" />
 
             <LinearLayout
-                android:layout_width="148dp"
-                android:layout_height="wrap_content"
+                android:layout_width="208dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/ly_item_wu_goods_reduce"
-                    android:layout_width="40dp"
+                    android:id="@+id/ly_item_huixi_goods_reduce"
+                    android:layout_width="56dp"
                     android:layout_height="match_parent">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginRight="12dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_goods_fitting_reduce" />
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/item_wu_goods_num"
-                    android:layout_width="76dp"
-                    android:layout_height="32dp"
+                    android:id="@+id/item_huixi_goods_num"
+                    android:layout_width="94dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:background="@drawable/windows_bg"
                     android:focusable="true"
@@ -155,28 +159,19 @@
                     android:textSize="@dimen/font_small" />
 
                 <RelativeLayout
-                    android:id="@+id/ly_item_wu_goods_add"
-                    android:layout_width="40dp"
+                    android:id="@+id/ly_item_huixi_goods_add"
+                    android:layout_width="56dp"
                     android:layout_height="match_parent">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="8dp"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_goods_fitting_add" />
                 </RelativeLayout>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:text="单位(个)"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/font_normal" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

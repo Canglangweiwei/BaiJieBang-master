@@ -58,7 +58,7 @@ public class PrinterListAdapter extends BaseAdapter {
 
         mTvtype.setText(model.getTitle());
         mTvnum.setText(String.valueOf(model.getNum()));
-        mTvnum_wu.setText(String.valueOf(model.getNum_wu()));
+        mTvnum_wu.setText(String.valueOf(model.getHuixiNum()));
 
         return convertView;
     }

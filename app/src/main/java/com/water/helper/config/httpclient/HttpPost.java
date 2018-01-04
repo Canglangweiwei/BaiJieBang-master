@@ -81,4 +81,18 @@ public class HttpPost {
     public void AddNewType(int hotel_id, String type_name, Subscriber<BaseModel> subscriber) {
         retrofitFactory.httpSubscribe(retrofitFactory.getApiService().AddNewType(hotel_id, type_name), subscriber);
     }
+
+    /**
+     * 出库明细
+     */
+    public void Get_ChuKuMx(int hid, int loc, String rqi, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().Get_ChuKuMx(hid, loc, rqi), subscriber);
+    }
+
+    /**
+     * 回换
+     */
+    public void HuiHuan(int cid, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().HuiHuan(cid), subscriber);
+    }
 }
