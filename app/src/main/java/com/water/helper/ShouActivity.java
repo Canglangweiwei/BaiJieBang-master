@@ -75,6 +75,8 @@ public class ShouActivity extends AbsBaseActivity
 
     private String mNumber, mServerNumber;
 
+    private boolean isShowHuixi = false;
+
     @Inject
     ShouPresenter presenter;
 
@@ -139,6 +141,19 @@ public class ShouActivity extends AbsBaseActivity
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        ntb.setRightTitleVisibility(true);
+        ntb.setRightTitle("回洗");
+        ntb.setOnRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isShowHuixi) {
+                    mAdapter.startOper();
+                } else {
+                    mAdapter.cancelOper();
+                }
+                isShowHuixi = !isShowHuixi;
             }
         });
 
@@ -209,6 +224,7 @@ public class ShouActivity extends AbsBaseActivity
      */
     @Override
     public void getAddType(ArrayList<GoodsModel> goodsModels) {
+        isShowHuixi = false;
         if (goodsModels == null || goodsModels.size() == 0)
             return;
         goodsList = goodsModels;
@@ -269,6 +285,7 @@ public class ShouActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(Throwable throwable) {
+        isShowHuixi = false;
         // 取消加载框显示
         stopProgressDialog();
         // 提示消息
@@ -277,6 +294,7 @@ public class ShouActivity extends AbsBaseActivity
 
     @Override
     public void onFailureCallback(int errorCode, String errorMsg) {
+        isShowHuixi = false;
         // 取消加载框显示
         stopProgressDialog();
         // 提示消息

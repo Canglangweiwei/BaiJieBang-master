@@ -13,6 +13,7 @@ public class GoodsModel implements Parcelable {
     private String title;
     private String dj;
     private boolean focus;
+    private int mode;
 
     public GoodsModel() {
         super();
@@ -26,6 +27,7 @@ public class GoodsModel implements Parcelable {
         title = in.readString();
         dj = in.readString();
         focus = in.readByte() != 0;
+        mode = in.readInt();
     }
 
     public int getId() {
@@ -84,6 +86,14 @@ public class GoodsModel implements Parcelable {
         this.focus = focus;
     }
 
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
     public static final Creator<GoodsModel> CREATOR = new Creator<GoodsModel>() {
         @Override
         public GoodsModel createFromParcel(Parcel in) {
@@ -110,5 +120,6 @@ public class GoodsModel implements Parcelable {
         dest.writeString(title);
         dest.writeString(dj);
         dest.writeByte((byte) (focus ? 1 : 0));
+        dest.writeInt(mode);
     }
 }

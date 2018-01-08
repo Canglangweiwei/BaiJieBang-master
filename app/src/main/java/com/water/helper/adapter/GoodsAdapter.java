@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,17 +24,17 @@ import java.util.List;
 @SuppressWarnings("ALL")
 public class GoodsAdapter extends BaseAdapter {
 
-    private ArrayList<GoodsModel> goodsModels;
+    private ArrayList<GoodsModel> data;
     private GoodsActionCallback callback;
 
     public GoodsAdapter() {
-        this.goodsModels = new ArrayList<>();
+        this.data = new ArrayList<>();
     }
 
     public void resetData(ArrayList<GoodsModel> goodsModels) {
         if (goodsModels == null)
             return;
-        this.goodsModels = goodsModels;
+        this.data = goodsModels;
         this.notifyDataSetChanged();
     }
 
@@ -41,18 +42,18 @@ public class GoodsAdapter extends BaseAdapter {
         this.callback = callback;
     }
 
-    public List<GoodsModel> getGoodsModels() {
-        return goodsModels;
+    public List<GoodsModel> getData() {
+        return data;
     }
 
     @Override
     public int getCount() {
-        return goodsModels.size();
+        return data.size();
     }
 
     @Override
     public GoodsModel getItem(int position) {
-        return goodsModels.get(position);
+        return data.get(position);
     }
 
     @Override
@@ -73,7 +74,21 @@ public class GoodsAdapter extends BaseAdapter {
         RelativeLayout item_good_reduce_wu = ViewHolderUtil.get(convertView, R.id.ly_item_huixi_goods_reduce);
         RelativeLayout item_good_add_wu = ViewHolderUtil.get(convertView, R.id.ly_item_huixi_goods_add);
 
-        final GoodsModel goodsModel = goodsModels.get(position);
+        final GoodsModel goodsModel = data.get(position);
+        LinearLayout layout = ViewHolderUtil.get(convertView, R.id.ll_huixi);
+        View view_huixi = ViewHolderUtil.get(convertView, R.id.view_huixi);
+        int mode = goodsModel.getMode();
+        switch (mode) {
+            case 0:
+                layout.setVisibility(View.VISIBLE);
+                view_huixi.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                layout.setVisibility(View.GONE);
+                view_huixi.setVisibility(View.GONE);
+                break;
+        }
+
         tvName.setText(goodsModel.getTitle());
         tvNumHuixi.setText(String.valueOf(goodsModel.getHuixiNum()));
 
@@ -175,16 +190,36 @@ public class GoodsAdapter extends BaseAdapter {
     }
 
     private void check(int position) {
-        for (GoodsModel l : goodsModels) {
+        for (GoodsModel l : data) {
             l.setFocus(false);
         }
-        goodsModels.get(position).setFocus(true);
+        data.get(position).setFocus(true);
     }
 
     private void enFoucs() {
-        for (GoodsModel l : goodsModels) {
+        for (GoodsModel l : data) {
             l.setFocus(false);
         }
+    }
+
+    /**
+     * 显示回洗按钮
+     */
+    public void startOper() {
+        for (GoodsModel bean : data) {
+            bean.setMode(1);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 隐藏回洗按钮
+     */
+    public void cancelOper() {
+        for (GoodsModel bean : data) {
+            bean.setMode(0);
+        }
+        notifyDataSetChanged();
     }
 
     public interface GoodsActionCallback {
