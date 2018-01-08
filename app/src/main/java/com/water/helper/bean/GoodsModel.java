@@ -13,7 +13,7 @@ public class GoodsModel implements Parcelable {
     private String title;
     private String dj;
     private boolean focus;
-    private int mode;
+    private int mode = 0;
 
     public GoodsModel() {
         super();

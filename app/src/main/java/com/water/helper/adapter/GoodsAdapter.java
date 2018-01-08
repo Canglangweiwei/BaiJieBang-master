@@ -80,12 +80,12 @@ public class GoodsAdapter extends BaseAdapter {
         int mode = goodsModel.getMode();
         switch (mode) {
             case 0:
-                layout.setVisibility(View.VISIBLE);
-                view_huixi.setVisibility(View.VISIBLE);
-                break;
-            case 1:
                 layout.setVisibility(View.GONE);
                 view_huixi.setVisibility(View.GONE);
+                break;
+            case 1:
+                layout.setVisibility(View.VISIBLE);
+                view_huixi.setVisibility(View.VISIBLE);
                 break;
         }
 
