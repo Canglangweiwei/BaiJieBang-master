@@ -194,7 +194,7 @@ public class PrintfManager {
             printTabSpace(14);
             printText("数量（个）");
             printTabSpace(10);
-            printText("重污（个）");
+            printText("回洗（个）");
             for (int j = 0; j < modeList.size(); j++) {
                 GoodsModel mode = modeList.get(j);
                 String name = mode.getTitle();

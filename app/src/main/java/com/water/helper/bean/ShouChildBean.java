@@ -8,9 +8,10 @@ package com.water.helper.bean;
  */
 public class ShouChildBean {
 
-    private int id;
-    private String name;
-    private int sum;
+    private int id;             // id
+    private String name;        // 类型
+    private int sum;            // 数量
+    private int hxNum;          // 回洗数量
 
     public ShouChildBean() {
         super();
@@ -38,5 +39,13 @@ public class ShouChildBean {
 
     public void setSum(int sum) {
         this.sum = sum;
+    }
+
+    public int getHxNum() {
+        return hxNum;
+    }
+
+    public void setHxNum(int hxNum) {
+        this.hxNum = hxNum;
     }
 }

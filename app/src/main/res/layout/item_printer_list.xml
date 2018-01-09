@@ -30,6 +30,6 @@
         android:layout_height="32dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="重污(个)"
+        android:text="回洗(个)"
         android:textColor="@color/gray" />
 </LinearLayout>

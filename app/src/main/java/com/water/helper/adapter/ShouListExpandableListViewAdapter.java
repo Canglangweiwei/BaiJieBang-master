@@ -110,7 +110,7 @@ public class ShouListExpandableListViewAdapter extends BaseExpandableListAdapter
         ArrayList<HashMap<String, Object>> gridItem = new ArrayList<>();
         for (ShouChildBean aData : data) {
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("channel_gridview_item", aData.getName() + ":" + aData.getSum());
+            hashMap.put("channel_gridview_item", aData.getName() + ":" + aData.getSum() + "【" + aData.getHxNum() + "】");
             gridItem.add(hashMap);
         }
         return gridItem;
