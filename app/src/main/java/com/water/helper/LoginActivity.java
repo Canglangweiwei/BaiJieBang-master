@@ -1,5 +1,6 @@
 package com.water.helper;
 
+import android.view.View;
 import android.widget.EditText;
 
 import com.jaydenxiao.common.commonutils.MD5Util;
@@ -76,6 +77,11 @@ public class LoginActivity extends AbsBaseActivity implements LoginContract.View
     @Override
     protected void initListener() {
 
+    }
+
+    @OnClick({R.id.tv_resetPass_login})
+    void resetPass(View view) {
+        startNextActivity(null, CheckUserInfoActivity.class);
     }
 
     /**

@@ -31,7 +31,7 @@ public class AppConfig {
     /**
      * 是否打印LogCat
      */
-    public static final int LOG_DEBUG = -1 /*10*/;           // 是否打印LogCat >=10都允许打印，小于0的都不允许打印
+    public static final int LOG_DEBUG = 10 /*10*/;           // 是否打印LogCat >=10都允许打印，小于0的都不允许打印
 
     /**
      * url

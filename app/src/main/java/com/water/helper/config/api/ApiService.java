@@ -91,8 +91,20 @@ public interface ApiService {
     Observable<BaseModel> Get_ChuKuMx(@Query("hid") int hid, @Query("loc") int loc, @Query("rqi") String rqi);
 
     /**
-     * 会换
+     * 回换
      */
     @GET("xidi/huihuan.php")
     Observable<BaseModel> HuiHuan(@Query("cid") int cid, @Query("czr") String username);
+
+    /**
+     * 校验用户信息
+     */
+    @GET("xidi/checkUser.php")
+    Observable<BaseModel> checkUser(@Query("username") String username, @Query("hotels") String hotels);
+
+    /**
+     * 修改密码
+     */
+    @GET("xidi/resetPass.php")
+    Observable<BaseModel> resetPass(@Query("username") String username, @Query("old_pass") String old_pass, @Query("new_pass") String new_pass);
 }

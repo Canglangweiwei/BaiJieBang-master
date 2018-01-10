@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jaydenxiao.common.commonwidget.NormalTitleBar
+        android:id="@+id/ntb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/low_gray" />
+
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:drawableTop="@drawable/verfiy_phone_step_yes"
+            android:text="验证用户"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="100dp"
+            android:layout_height="0.5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="44dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="11dp"
+            android:background="@color/list_divider" />
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="53dp"
+            android:layout_marginStart="53dp"
+            android:layout_toEndOf="@+id/t1"
+            android:layout_toRightOf="@+id/t1"
+            android:drawablePadding="8dp"
+            android:drawableTop="@drawable/verfiy_phone_step2"
+            android:text="设置密码"
+            android:textColor="@color/txt_red"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/low_gray" />
+
+    <EditText
+        android:id="@+id/et_reset_old_pass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:hint="请输入原密码"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/list_divider" />
+
+    <EditText
+        android:id="@+id/et_reset_new_pass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:hint="请输入新密码"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/font_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/list_divider" />
+
+    <Button
+        android:id="@+id/btn_reset_verfiy_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="提交验证"
+        android:textColor="@color/txt_red"
+        android:textSize="@dimen/font_middle" />
+</LinearLayout>

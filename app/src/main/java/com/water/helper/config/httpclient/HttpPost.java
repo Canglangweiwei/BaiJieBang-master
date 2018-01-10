@@ -95,4 +95,18 @@ public class HttpPost {
     public void HuiHuan(int cid, String username, Subscriber<BaseModel> subscriber) {
         retrofitFactory.httpSubscribe(retrofitFactory.getApiService().HuiHuan(cid, username), subscriber);
     }
+
+    /**
+     * 验证用户信息
+     */
+    public void checkUinfo(String username, String hotels, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().checkUser(username, hotels), subscriber);
+    }
+
+    /**
+     * 修改密码
+     */
+    public void resetPass(String username, String old_pass, String new_pass, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().resetPass(username, old_pass, new_pass), subscriber);
+    }
 }

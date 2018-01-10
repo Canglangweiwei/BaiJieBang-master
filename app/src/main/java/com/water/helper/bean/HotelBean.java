@@ -10,6 +10,7 @@ public class HotelBean {
 
     private int id;
     private String name;
+    private int isSelect = 0;// 标记是否选中
 
     public HotelBean() {
         super();
@@ -29,5 +30,13 @@ public class HotelBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getIsSelect() {
+        return isSelect;
+    }
+
+    public void setIsSelect(int isSelect) {
+        this.isSelect = isSelect;
     }
 }
