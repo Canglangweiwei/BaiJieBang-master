@@ -1,5 +1,6 @@
 package com.water.helper.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.List;
  * </p>
  * Created by Administrator on 2017/11/1 0001.
  */
+@SuppressWarnings("ALL")
 public class CommonFilterHotelLzListAdapter extends BaseAdapter {
 
     private List<HotelLzBean> data;
@@ -52,12 +54,13 @@ public class CommonFilterHotelLzListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Context mContext = parent.getContext();
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_gridview_item, parent, false);
         }
         TextView tvName = ViewHolderUtil.get(convertView, R.id.channel_gridview_item);
         tvName.setText(data.get(position).getName());
-        tvName.setBackgroundColor(parent.getContext().getColor(R.color.white));
+        tvName.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         return convertView;
     }
 }
