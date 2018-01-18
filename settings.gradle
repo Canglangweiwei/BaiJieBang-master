@@ -1,5 +1,5 @@
 include ':app'
 include ':library:jpush'
 include ':library:common'
-include ':library:irecyclerview'
+include ':library:xrecyclerview'
 include ':library:selectordialog'

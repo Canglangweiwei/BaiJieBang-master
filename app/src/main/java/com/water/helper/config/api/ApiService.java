@@ -107,4 +107,16 @@ public interface ApiService {
      */
     @GET("xidi/resetPass.php")
     Observable<BaseModel> resetPass(@Query("username") String username, @Query("old_pass") String old_pass, @Query("new_pass") String new_pass);
+
+    /**
+     * 成员列表
+     */
+    @GET("xidi/members.php")
+    Observable<BaseModel> members(@Query("searchname") String searchname, @Query("pageindex") int pageindex);
+
+    /**
+     * 绩效录入
+     */
+    @GET("xidi/jxInput.php")
+    Observable<BaseModel> jxInput(@Query("name") String name, @Query("days") String days, @Query("bans") String bans);
 }

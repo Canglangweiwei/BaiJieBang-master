@@ -122,6 +122,18 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
+        <!-- 绩效录入页面 -->
+        <activity
+            android:name=".JxInputActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 成员信息页面 -->
+        <activity
+            android:name=".MemberSelectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <!--******************************** 极光推送 *******************************/ -->
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity

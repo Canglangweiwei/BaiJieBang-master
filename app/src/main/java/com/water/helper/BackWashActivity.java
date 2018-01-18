@@ -9,13 +9,13 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.aspsine.irecyclerview.view.DividerItemDecoration;
 import com.jaydenxiao.common.commonutils.DateTimeUtil;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 import com.water.helper.adapter.ChukuMxAdapter;
 import com.water.helper.adapter.CommonFilterHotelListAdapter;
 import com.water.helper.adapter.CommonFilterHotelLzListAdapter;
+import com.water.helper.adapter.DividerItemDecoration;
 import com.water.helper.app.AbsAppComponent;
 import com.water.helper.base.AbsBaseActivity;
 import com.water.helper.bean.ChuKuMxBean;

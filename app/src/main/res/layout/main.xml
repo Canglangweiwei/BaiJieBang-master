@@ -7,13 +7,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/am_ll_shgl"
+            android:id="@+id/am_rl_shgl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/home_shouhuo_manager_select"
@@ -45,14 +44,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/am_ll_shtj"
+            android:id="@+id/am_rl_shtj"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/home_shouhuo_query_select"
@@ -84,14 +82,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/am_ll_songhgl"
+            android:id="@+id/am_rl_songhgl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/home_songhuo_manager_select"
@@ -125,13 +122,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/am_ll_back_wash"
+            android:id="@+id/am_rl_back_wash"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/home_back_wash_select"
@@ -149,6 +145,43 @@
 
             <TextView
                 android:id="@+id/am_tv_back_wash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_middle"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/am_ll_jxlr"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/am_rl_jxlr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_jxlr_select"
+            android:clickable="true"
+            android:padding="8dp"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_larger"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/am_tv_jxlr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

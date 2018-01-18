@@ -3,6 +3,7 @@ package com.water.helper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jaydenxiao.common.commonutils.DataCleanManager;
@@ -29,6 +30,9 @@ public class HomeActivity extends AbsBaseActivity {
 
     @Bind(R.id.home_tv_zhaohu)
     TextView mTvzhaohu;
+
+    @Bind(R.id.am_ll_jxlr)
+    LinearLayout ll_jxlr;
 
     private MDAlertDialog mdAlertDialog;
 
@@ -70,6 +74,9 @@ public class HomeActivity extends AbsBaseActivity {
         ntb.setTitleText(getString(R.string.app_name));
         ntb.setBackVisibility(false);
         mTvzhaohu.setText(mBaseUserBean == null ? "您好" : mBaseUserBean.getZhaohu());
+        // 根据权限来管理绩效录入模块儿功能
+        int qx = mBaseUserBean.getQx();
+        ll_jxlr.setVisibility(qx == 1 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -77,21 +84,27 @@ public class HomeActivity extends AbsBaseActivity {
 
     }
 
-    @OnClick({R.id.am_ll_shgl, R.id.am_ll_shtj,
-            R.id.am_ll_songhgl, R.id.am_ll_back_wash,})
+    @OnClick({R.id.am_rl_shgl, R.id.am_rl_shtj,
+            R.id.am_rl_songhgl, R.id.am_rl_back_wash,
+            R.id.am_rl_jxlr})
     void onClickEvent(View view) {
         switch (view.getId()) {
-            case R.id.am_ll_shgl:// 收货管理
+            case R.id.am_rl_shgl:// 收货管理
                 startNextActivity(null, ShouActivity.class);
                 break;
-            case R.id.am_ll_shtj:// 收货统计
+            case R.id.am_rl_shtj:// 收货统计
                 startNextActivity(null, ShouListActivity.class);
                 break;
-            case R.id.am_ll_songhgl:// 送货管理
+            case R.id.am_rl_songhgl:// 送货管理
                 startNextActivity(null, FaActivity.class);
                 break;
-            case R.id.am_ll_back_wash:// 回洗管理
+            case R.id.am_rl_back_wash:// 回洗管理
                 startNextActivity(null, BackWashActivity.class);
+                break;
+            case R.id.am_rl_jxlr:       // 绩效录入
+                startNextActivity(null, JxInputActivity.class);
+                break;
+            default:
                 break;
         }
     }

@@ -109,4 +109,18 @@ public class HttpPost {
     public void resetPass(String username, String old_pass, String new_pass, Subscriber<BaseModel> subscriber) {
         retrofitFactory.httpSubscribe(retrofitFactory.getApiService().resetPass(username, old_pass, new_pass), subscriber);
     }
+
+    /**
+     * 绩效录入
+     */
+    public void jxInput(String name, String days, String bans, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().jxInput(name, days, bans), subscriber);
+    }
+
+    /**
+     * 成员列表
+     */
+    public void members(String searchname, int pageindex, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().members(searchname, pageindex), subscriber);
+    }
 }

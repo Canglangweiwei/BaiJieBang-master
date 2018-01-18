@@ -3,7 +3,7 @@
     <!-- 数据库名称 -->
     <dbname value="waterhelper_db" />
     <!-- 数据库版本 -->
-    <version value="2" />
+    <version value="3" />
     <!-- 数据库对应实体类 -->
     <list>
         <mapping class="com.water.helper.bean.UserBean" />

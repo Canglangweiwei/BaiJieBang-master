@@ -53,7 +53,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':library:jpush')
     // 对话框工具包
-    compile project(':library:irecyclerview')
+    compile project(':library:xrecyclerview')
     // 万能适配器和recyclerview
     compile project(':library:selectordialog')
     // 对话框工具包

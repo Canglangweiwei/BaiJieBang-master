@@ -1,18 +1,13 @@
 package com.water.helper.bean;
 
-import org.litepal.crud.DataSupport;
-
-import java.io.Serializable;
-
 /**
  * <p>
- * 用户信息
+ * 成员信息
  * </p>
  * Created by Administrator on 2017/10/13 0013.
  */
 @SuppressWarnings("ALL")
-public class UserBean extends DataSupport implements Serializable {
-
+public class MemberBean {
 
     /**
      * userid : 2
@@ -37,7 +32,7 @@ public class UserBean extends DataSupport implements Serializable {
     private String zhaohu;
     private int qx;
 
-    public UserBean() {
+    public MemberBean() {
         super();
     }
 

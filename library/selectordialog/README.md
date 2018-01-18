@@ -144,16 +144,16 @@ MDSelectionDialog dialog5 = new MDSelectionDialog.Builder(MainActivity.this)
                 .setOnItemListener(new DialogOnItemClickListener() {
                     @Override
                     public void onItemClick(Button button, int position) {
-                        Toast.makeText(MainActivity.this, datas.get(position), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, data.get(position), Toast.LENGTH_SHORT).show();
 //                        dialog5.dismiss();
                     }
                 })
                 .build();
-        datas = new ArrayList<>();
-        datas.add("标为未读");
-        datas.add("置顶聊天");
-        datas.add("删除该聊天");
-        dialog5.setDataList(datas);
+        data = new ArrayList<>();
+        data.add("标为未读");
+        data.add("置顶聊天");
+        data.add("删除该聊天");
+        dialog5.setDataList(data);
 ```
 
 - 样式六
