@@ -1,0 +1,23 @@
+
+androidTv开发，页面自适应所有盒子解决方案
+
+
+
+webView = (WebView) findViewById(R.id.webView);
+webView.loadUrl(“file:///android_asset/health_new/index.htm”);
+// 启用支持javascript
+webView.getSettings().setJavaScriptEnabled(true);
+webView.getSettings().setUseWideViewPort(true);
+webView.getSettings().setLoadWithOverviewMode(true);
+// 设置页面显示各个盒子显示不兼容问题
+// ===================================
+DisplayMetrics metrics = new DisplayMetrics();
+getWindowManager().getDefaultDisplay().getMetrics(metrics);
+int mDensity = metrics.densityDpi;
+if (mDensity == 120) {
+webView.getSettings().setDefaultZoom(ZoomDensity.CLOSE);
+} else if (mDensity == 160) {
+webView.getSettings().setDefaultZoom(ZoomDensity.MEDIUM);
+} else if (mDensity == 240) {
+webView.getSettings().setDefaultZoom(ZoomDensity.FAR);
+}
