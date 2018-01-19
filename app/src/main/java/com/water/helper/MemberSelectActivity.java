@@ -10,7 +10,6 @@ import com.jaydenxiao.common.commonwidget.ClearEditText;
 import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.water.helper.adapter.DividerItemDecoration;
 import com.water.helper.adapter.MemberAdapter;
 import com.water.helper.app.AbsAppComponent;
 import com.water.helper.base.AbsBaseActivity;
@@ -84,8 +83,6 @@ public class MemberSelectActivity extends AbsBaseActivity
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        // 分割线
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
