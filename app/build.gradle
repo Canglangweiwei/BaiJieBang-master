@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'// Dagger2配置
 
+// 加载签名配置的文件
+Properties props = new Properties()
+props.load(project.rootProject.file('signing.properties').newDataInputStream())
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -23,10 +27,50 @@ android {
                 JPUSH_CHANNEL: "developer-default", // 暂时填写默认值即可.
         ]
     }
+
+    // 配置签名信息
+    signingConfigs {
+        release {
+            // 签名文件的路径
+            storeFile file(props['KEYSTORE_FILE'])
+            // 签名密码
+            storePassword props['KEYSTORE_PASSWORD']
+            // 签名的别名
+            keyAlias props['KEY_ALIAS']
+            // 密码
+            keyPassword props['KEY_PASSWORD']
+        }
+        debug {
+            // 签名文件的路径
+            storeFile file(props['KEYSTORE_FILE'])
+            // 签名密码
+            storePassword props['KEYSTORE_PASSWORD']
+            // 签名的别名
+            keyAlias props['KEY_ALIAS']
+            // 密码
+            keyPassword props['KEY_PASSWORD']
+        }
+    }
+
     buildTypes {
         release {
+            // 是否混淆
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 是否移除无用资源
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            // 混淆的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+
+        debug {
+            // 是否混淆
+            minifyEnabled false
+            // 是否移除无用资源
+            zipAlignEnabled true
+            signingConfig signingConfigs.debug
+            // 混淆的配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 
