@@ -80,5 +80,6 @@
         android:paddingTop="8dp"
         android:text="回换"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone" />
 </RelativeLayout>

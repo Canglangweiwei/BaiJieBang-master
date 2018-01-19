@@ -1,4 +1,4 @@
-package com.water.helper.adapter;
+package com.water.helper.adapter.base;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

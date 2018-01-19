@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.water.helper.adapter.base.BaseReclyerViewAdapter;
 import com.water.helper.bean.ChuKuMxBean;
 import com.water.helper.config.presenter.BackWashPresenter;
 import com.water.helper.viewholder.ChukuMxHolder;
