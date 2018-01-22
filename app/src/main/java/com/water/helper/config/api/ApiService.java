@@ -118,5 +118,5 @@ public interface ApiService {
      * 绩效录入
      */
     @GET("xidi/jxInput.php")
-    Observable<BaseModel> jxInput(@Query("name") String name, @Query("days") String days, @Query("bans") String bans);
+    Observable<BaseModel> jxInput(@Query("name") String name, @Query("days") String days, @Query("bans") String bans, @Query("date") String date);
 }

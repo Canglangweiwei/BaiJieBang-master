@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jaydenxiao.common.commonutils.DateTimeUtil;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 import com.water.helper.adapter.CategoryListAdapter;
@@ -18,8 +19,10 @@ import com.water.helper.config.contract.JxInputContract;
 import com.water.helper.config.module.JxInputModule;
 import com.water.helper.config.presenter.JxInputPresenter;
 import com.water.helper.webservice.RequestType;
+import com.wevey.selector.dialog.DateType;
 import com.wevey.selector.dialog.DialogOnClickListener;
 import com.wevey.selector.dialog.MDAlertDialog;
+import com.wevey.selector.dialog.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +49,10 @@ public class JxInputActivity extends AbsBaseActivity implements JxInputContract.
     Spinner s_gw;       // 岗位
     @Bind(R.id.s_bc)
     Spinner s_bc;       // 班次
+    @Bind(R.id.edit_jxlr_birth)
+    TextView mEditRq;   // 日期
 
-    private String mSelectGwName, mSelectBcName;
+    private String mSelectGwName, mSelectBcName, mSelectedDateTime;
 
     @Inject
     JxInputPresenter presenter;
@@ -74,6 +79,8 @@ public class JxInputActivity extends AbsBaseActivity implements JxInputContract.
     @Override
     protected void initUi() {
         ntb.setTitleText("绩效录入");
+        mSelectedDateTime = DateTimeUtil.getClientDateFormat("yyyy-MM-dd HH:mm:SS");
+        mEditRq.setText(mSelectedDateTime);
 
         presenter.attachView(this);
     }
@@ -134,7 +141,7 @@ public class JxInputActivity extends AbsBaseActivity implements JxInputContract.
      */
     private void commit(String name) {
         startProgressDialog();
-        presenter.add(name, mSelectGwName, mSelectBcName);
+        presenter.add(name, mSelectGwName, mSelectBcName, mSelectedDateTime);
     }
 
     @Override
@@ -191,6 +198,26 @@ public class JxInputActivity extends AbsBaseActivity implements JxInputContract.
 
             }
         });
+    }
+
+    @OnClick({R.id.edit_jxlr_birth})
+    void onClickSelectDate(View v) {
+        TimePickerDialog pickerDialog = new TimePickerDialog(this);
+        pickerDialog.setDateType(DateType.TIME);
+        pickerDialog.setListener(new TimePickerDialog.OnTimePickerDialogListener() {
+            @Override
+            public void onTimeSelect(String timeSelect) {
+                mSelectedDateTime = timeSelect;
+                mEditRq.setText(timeSelect);
+            }
+
+            @Override
+            public void onErrorDate(String errorDate) {
+                ToastUitl.showShort(errorDate + "是无效日期");
+            }
+        });
+        if (!isFinishing())
+            pickerDialog.show();
     }
 
     @Override

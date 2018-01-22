@@ -26,9 +26,9 @@ public class JxInputPresenter implements JxInputContract.Presenter {
     }
 
     @Override
-    public void add(String name, String days, String bans) {
+    public void add(String name, String days, String bans, String date) {
         HttpPost httpPost = new HttpPost();
-        httpPost.jxInput(name, days, bans, new Subscriber<BaseModel>() {
+        httpPost.jxInput(name, days, bans, date, new Subscriber<BaseModel>() {
             @Override
             public void onCompleted() {
 

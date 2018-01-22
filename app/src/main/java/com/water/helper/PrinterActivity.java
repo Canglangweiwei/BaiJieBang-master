@@ -49,7 +49,8 @@ public class PrinterActivity extends AbsBaseActivity {
     NoScrollListView printerListview;       // 打印列表
 
     private String hotelName, hotelLcName, beizhu;// 宾馆、楼层、备注信息
-    private ArrayList<GoodsModel> printerList;// 打印列表
+    private ArrayList<GoodsModel> arrayList;// 获取的打印信息
+    private ArrayList<GoodsModel> printerList = new ArrayList<>();// 正式打印列表
 
     // 打印机相关
     private PrintfManager printfManager;
@@ -67,7 +68,17 @@ public class PrinterActivity extends AbsBaseActivity {
         beizhu = bundle.getString("beizhu");
         hotelName = bundle.getString("hotel");
         hotelLcName = bundle.getString("hotelLc");
-        printerList = bundle.getParcelableArrayList("printer_list");
+        arrayList = bundle.getParcelableArrayList("printer_list");
+
+        // 去除冗余数据
+        if (arrayList != null && arrayList.size() > 0) {
+            for (GoodsModel model : arrayList) {
+                if (model.getNum() != 0
+                        || model.getHuixiNum() != 0) {
+                    printerList.add(model);
+                }
+            }
+        }
     }
 
     @Override
@@ -137,12 +148,16 @@ public class PrinterActivity extends AbsBaseActivity {
 
     @OnClick({R.id.btn_print})
     void print(View view) {
+        if (printerList == null || printerList.size() == 0) {
+            ToastUitl.showShort("没有需要打印的数据");
+            return;
+        }
         if (printfManager.isConnect()) {
             LoadingDialog.showDialogForLoading(this, "正在打印，请稍后...", false);
             AbsBaseApplication.sApp.getCachedThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-                    printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, printerList);
+                    printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, arrayList);
                 }
             });
         } else {

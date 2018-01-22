@@ -15,6 +15,6 @@ public interface JxInputContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void add(String name, String days, String bans);
+        void add(String name, String days, String bans, String date);
     }
 }

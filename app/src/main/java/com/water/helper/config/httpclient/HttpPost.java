@@ -113,8 +113,8 @@ public class HttpPost {
     /**
      * 绩效录入
      */
-    public void jxInput(String name, String days, String bans, Subscriber<BaseModel> subscriber) {
-        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().jxInput(name, days, bans), subscriber);
+    public void jxInput(String name, String days, String bans, String date, Subscriber<BaseModel> subscriber) {
+        retrofitFactory.httpSubscribe(retrofitFactory.getApiService().jxInput(name, days, bans, date), subscriber);
     }
 
     /**
