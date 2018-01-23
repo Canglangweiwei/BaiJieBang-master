@@ -49,7 +49,6 @@ public class PrinterActivity extends AbsBaseActivity {
     NoScrollListView printerListview;       // 打印列表
 
     private String hotelName, hotelLcName, beizhu;// 宾馆、楼层、备注信息
-    private ArrayList<GoodsModel> arrayList;// 获取的打印信息
     private ArrayList<GoodsModel> printerList = new ArrayList<>();// 正式打印列表
 
     // 打印机相关
@@ -68,7 +67,7 @@ public class PrinterActivity extends AbsBaseActivity {
         beizhu = bundle.getString("beizhu");
         hotelName = bundle.getString("hotel");
         hotelLcName = bundle.getString("hotelLc");
-        arrayList = bundle.getParcelableArrayList("printer_list");
+        ArrayList<GoodsModel> arrayList = bundle.getParcelableArrayList("printer_list");
 
         // 去除冗余数据
         if (arrayList != null && arrayList.size() > 0) {
@@ -157,7 +156,7 @@ public class PrinterActivity extends AbsBaseActivity {
             AbsBaseApplication.sApp.getCachedThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
-                    printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, arrayList);
+                    printfManager.printf(hotelName, hotelLcName, mBaseUserBean.getUsername(), beizhu, printerList);
                 }
             });
         } else {
