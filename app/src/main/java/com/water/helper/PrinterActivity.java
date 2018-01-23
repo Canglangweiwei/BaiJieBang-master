@@ -148,7 +148,7 @@ public class PrinterActivity extends AbsBaseActivity {
     @OnClick({R.id.btn_print})
     void print(View view) {
         if (printerList == null || printerList.size() == 0) {
-            ToastUitl.showShort("没有需要打印的数据");
+            ToastUitl.showShort("没有需要打印的票据");
             return;
         }
         if (printfManager.isConnect()) {
