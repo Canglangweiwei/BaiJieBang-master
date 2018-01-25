@@ -215,6 +215,7 @@ public class ShouActivity extends AbsBaseActivity
         hotelLzListAdapter.addData(lous);
         // 获取默认的第一个item的值
         mSelectedHotelLzId = lous.get(0).getId();
+        hotelLcName = lous.get(0).getName();
     }
 
     /**
