@@ -13,11 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * <p>
@@ -83,24 +78,6 @@ public class RetrofitFactory {
             }
         }
         return tmp;
-    }
-
-    /**
-     * 设置线程订阅转换
-     */
-    public <T> void httpSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
-        observable.map(new Func1<T, T>() {
-
-            @Override
-            public T call(T t) {
-                // 在这里进行json转换并返回
-                return t;
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
     }
 
     /**
