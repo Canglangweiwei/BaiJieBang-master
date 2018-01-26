@@ -67,17 +67,7 @@ public class PrinterActivity extends AbsBaseActivity {
         beizhu = bundle.getString("beizhu");
         hotelName = bundle.getString("hotel");
         hotelLcName = bundle.getString("hotelLc");
-        ArrayList<GoodsModel> arrayList = bundle.getParcelableArrayList("printer_list");
-
-        // 去除冗余数据
-        if (arrayList != null && arrayList.size() > 0) {
-            for (GoodsModel model : arrayList) {
-                if (model.getNum() != 0
-                        || model.getHuixiNum() != 0) {
-                    printerList.add(model);
-                }
-            }
-        }
+        printerList = bundle.getParcelableArrayList("printer_list");
     }
 
     @Override

@@ -65,6 +65,7 @@ public class ShouActivity extends AbsBaseActivity
 
     private GoodsAdapter mAdapter;
     private ArrayList<GoodsModel> goodsList;
+    private ArrayList<GoodsModel> printList;
 
     private PopupWindowManager popupWindowManager;
 
@@ -248,7 +249,7 @@ public class ShouActivity extends AbsBaseActivity
         bundle.putString("hotel", hotelName);
         bundle.putString("hotelLc", hotelLcName);
         bundle.putString("beizhu", etContent.getEditTextContent());
-        bundle.putParcelableArrayList("printer_list", goodsList);
+        bundle.putParcelableArrayList("printer_list", printList);
         startNextActivity(bundle, PrinterActivity.class);
         // ②清空提交数据
         etContent.clear();
@@ -426,8 +427,24 @@ public class ShouActivity extends AbsBaseActivity
      * 提交数据
      */
     private void upload() {
+        printList = new ArrayList<>();
+        // 去除冗余数据
+        if (goodsList != null && goodsList.size() > 0) {
+            for (GoodsModel model : goodsList) {
+                if (model.getNum() != 0
+                        || model.getHuixiNum() != 0) {
+                    printList.add(model);
+                }
+            }
+        }
+
+        if (printList.size() == 0) {
+            ToastUitl.showShort("没有需要入库的数据");
+            return;
+        }
+
         StringBuilder builder = new StringBuilder();
-        for (GoodsModel model : goodsList) {
+        for (GoodsModel model : printList) {
             builder.append(model.getId())
                     .append("/")
                     .append(model.getTitle())
