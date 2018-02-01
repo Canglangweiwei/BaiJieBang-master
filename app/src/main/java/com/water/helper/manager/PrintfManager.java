@@ -118,7 +118,6 @@ public class PrintfManager {
         });
     }
 
-
     public Handler mHandler = new Handler() {
 
         @Override
@@ -170,16 +169,16 @@ public class PrintfManager {
      * @param remark    ：备注
      */
     public final void printf(final String hotelName, final String floor,
-                       final String operator, final String remark,
-                       final List<GoodsModel> modeList) {
+                             final String operator, final String remark,
+                             final List<GoodsModel> modeList) {
         try {
             // 图片打印
             printLogoImage();
             printfWrap();
             printTabSpace(17);
-            boldOn();// 加粗
+//            boldOn();// 加粗
             printLargeText("收货单");
-            boldOff();// 取消加粗
+//            boldOff();// 取消加粗
             printfWrap(2);
             printTwoColumn("宾\u3000馆：", hotelName);
             printfWrap();
